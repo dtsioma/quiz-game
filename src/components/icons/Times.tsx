@@ -24,8 +24,8 @@ export const Times: React.FC<TimesProps> = ({ variant }) => {
       <path
         d="M5 5L30 30M30 5L5 30"
         stroke={stroke}
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
     </svg>
   );
