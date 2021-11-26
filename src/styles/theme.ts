@@ -1,3 +1,7 @@
 export const mainTheme = {
-  lavenderWeb: "#D8DDEF",
+  colors: {
+    lavenderWeb: "#D8DDEF",
+    steelBlue: "#3581B8",
+    macAndCheese: "#FCB07E",
+  },
 };
