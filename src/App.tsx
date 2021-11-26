@@ -1,22 +1,44 @@
 import styled from "styled-components";
 import { AppRoutes } from "./components/AppRoutes";
-import { mainTheme } from "./styles/theme";
+import { Times } from "./components/icons/Times";
+import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
-const Main = styled.main`
-  height: 100vh;
-  width: 100vw;
-  background-color: ${mainTheme.colors.lavenderWeb};
+const Header = styled.div`
+  margin-top: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  padding: 0 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const IconButton = styled.button`
+  padding: 0;
+  background: none;
+  border: none;
 `;
 
 function App() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate("/");
+  };
+
   return (
-    <Main>
+    <>
+      {pathname !== "/" && (
+        <Header>
+          <IconButton onClick={goToHome}>
+            <Times variant="blue" />
+          </IconButton>
+        </Header>
+      )}
       <AppRoutes />
-    </Main>
+    </>
   );
 }
 

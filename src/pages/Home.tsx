@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../components/buttons/Button";
+import { Button } from "../components/Button";
 import { mainTheme } from "../styles/theme";
+import { useNavigate } from "react-router";
+import { Main } from "../components/Main";
+
+const HomeMain = styled(Main)`
+  background-color: ${mainTheme.colors.lavenderWeb};
+`;
 
 const TextWrapper = styled.div`
   display: flex;
@@ -38,17 +44,23 @@ const HomeButton = styled(Button)`
 `;
 
 export const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  const startQuiz = () => {
+    navigate("/countdown");
+  };
+
   return (
-    <>
+    <HomeMain>
       <TextWrapper>
         <Title>State Quiz</Title>
         <Subtitle>How many you can guess?</Subtitle>
       </TextWrapper>
       <HomeButtonsWrapper>
-        <HomeButton width="300px" variant="orange">
+        <HomeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
         </HomeButton>
       </HomeButtonsWrapper>
-    </>
+    </HomeMain>
   );
 };

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-// @ts-ignore
-import { mainTheme } from "../../styles/theme.ts";
+import { mainTheme } from "../styles/theme";
 
 interface ButtonProps {
   width?: string;
   variant: "blue" | "orange";
   className?: string;
+  clicked?: () => void;
 }
 
 const Btn = styled.button`
@@ -32,9 +32,15 @@ export const Button: React.FC<ButtonProps> = ({
   variant,
   className,
   children,
+  clicked,
 }) => {
   return (
-    <Btn className={className} width={width} variant={variant}>
+    <Btn
+      className={className}
+      width={width}
+      variant={variant}
+      onClick={clicked}
+    >
       {children}
     </Btn>
   );
