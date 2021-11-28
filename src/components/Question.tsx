@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import states from "../states.ts";
 import styled from "styled-components";
 import { QuizOption } from "./QuizOption";
+import { mainTheme } from "../styles/theme";
 
 interface QuestionProps {
   setProgress: React.Dispatch<React.SetStateAction<any>>;
@@ -15,9 +16,35 @@ interface QuestionOption {
   code: string;
 }
 
+type QuestionStatus =
+  | "default"
+  | "hinted"
+  | "answeredCorrectly"
+  | "answeredIncorrectly";
+
+const QuestionPrompt = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const QuestionSubtitle = styled.div`
+  font-size: 24px;
+  font-weight: medium;
+  text-align: center;
+`;
+
+const QuestionTitle = styled.div`
+  color: ${mainTheme.colors.steelBlue};
+  font-size: 48px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+`;
+
 const QuizOptionsWrapper = styled.div`
   width: 320px;
-  margin: 0 auto;
+  margin: 50px auto 0;
   display: grid;
   column-gap: 20px;
   row-gap: 20px;
@@ -25,16 +52,11 @@ const QuizOptionsWrapper = styled.div`
   grid-template-rows: 150px 150px;
 `;
 
-type QuestionStatus =
-  | "default"
-  | "hinted"
-  | "answeredCorrectly"
-  | "answeredIncorrectly";
-
 export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const [options, setOptions] = useState<QuestionOption[]>([]);
   const [questionStatus, setQuestionStatus] =
     useState<QuestionStatus>("default");
+  const [stateName, setStateName] = useState<string>();
   const [answerIndex, setAnswerIndex] = useState<number>();
 
   const usedIndices: number[] = [];
@@ -60,6 +82,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const generateAnswer = (opts: QuestionOption[]) => {
     const anIdx = Math.floor(Math.random() * 4);
     opts[anIdx].correct = true;
+    setStateName(opts[anIdx].name);
   };
 
   const answer = (index: number) => {
@@ -88,25 +111,31 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   }, []);
 
   return (
-    <QuizOptionsWrapper>
-      {options.map((opt, index) => {
-        return (
-          <QuizOption
-            name={opt.name}
-            variant={getVariant(index)}
-            key={opt.code}
-            displayName={
-              questionStatus === "answeredCorrectly" ||
-              questionStatus === "answeredIncorrectly"
-            }
-            clicked={() => {
-              answer(index);
-            }}
-          >
-            {opt.char}
-          </QuizOption>
-        );
-      })}
-    </QuizOptionsWrapper>
+    <>
+      <QuestionPrompt>
+        <QuestionSubtitle>Show me...</QuestionSubtitle>
+        <QuestionTitle>{stateName}</QuestionTitle>
+      </QuestionPrompt>
+      <QuizOptionsWrapper>
+        {options.map((opt, index) => {
+          return (
+            <QuizOption
+              name={opt.name}
+              variant={getVariant(index)}
+              key={opt.code}
+              displayName={
+                questionStatus === "answeredCorrectly" ||
+                questionStatus === "answeredIncorrectly"
+              }
+              clicked={() => {
+                answer(index);
+              }}
+            >
+              {opt.char}
+            </QuizOption>
+          );
+        })}
+      </QuizOptionsWrapper>
+    </>
   );
 };
