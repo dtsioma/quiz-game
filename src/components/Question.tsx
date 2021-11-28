@@ -25,8 +25,18 @@ const QuizOptionsWrapper = styled.div`
   grid-template-rows: 150px 150px;
 `;
 
+type QuestionStatus =
+  | "default"
+  | "hinted"
+  | "answeredCorrectly"
+  | "answeredIncorrectly";
+
 export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const [options, setOptions] = useState<QuestionOption[]>([]);
+  const [questionStatus, setQuestionStatus] =
+    useState<QuestionStatus>("default");
+  const [answerIndex, setAnswerIndex] = useState<number>();
+
   const usedIndices: number[] = [];
   const generateOptions = () => {
     const opts = [];
@@ -52,6 +62,25 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
     opts[anIdx].correct = true;
   };
 
+  const answer = (index: number) => {
+    setAnswerIndex(index);
+    if (options[index].correct) {
+      setQuestionStatus("answeredCorrectly");
+    } else {
+      setQuestionStatus("answeredIncorrectly");
+    }
+  };
+
+  const getVariant = (index: number) => {
+    if (questionStatus === "answeredCorrectly") {
+      return index === answerIndex ? "correct" : "disabled";
+    } else if (questionStatus === "answeredIncorrectly") {
+      if (options[index].correct) return "correct";
+      else if (index === answerIndex) return "incorrect";
+      else return "disabled";
+    } else return "default";
+  };
+
   useEffect(() => {
     const myOptions = generateOptions();
     generateAnswer(myOptions);
@@ -60,11 +89,20 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
 
   return (
     <QuizOptionsWrapper>
-      {options.map((opt) => (
-        <QuizOption name={opt.name} variant="default" key={opt.code}>
-          {opt.char}
-        </QuizOption>
-      ))}
+      {options.map((opt, index) => {
+        return (
+          <QuizOption
+            name={opt.name}
+            variant={getVariant(index)}
+            key={opt.code}
+            clicked={() => {
+              answer(index);
+            }}
+          >
+            {opt.char}
+          </QuizOption>
+        );
+      })}
     </QuizOptionsWrapper>
   );
 };

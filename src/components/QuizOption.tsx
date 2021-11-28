@@ -5,39 +5,40 @@ import { mainTheme } from "../styles/theme";
 interface QuizOptionProps {
   name: string;
   variant: "default" | "active" | "disabled" | "correct" | "incorrect";
+  clicked: () => void;
 }
 
 const Option = styled.div`
   width: 150px;
   height: 150px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	&.default {
-  background-color: ${mainTheme.colors.steelBlueTransparent};
-	color: ${mainTheme.colors.steelBlue}
-	}
+  &.default {
+    background-color: ${mainTheme.colors.steelBlueTransparent};
+    color: ${mainTheme.colors.steelBlue};
+  }
 
-	&.active {
-		background-color: ${mainTheme.colors.steelBlue};
-		color: ${mainTheme.colors.macAndCheese};
-	}
+  &.active {
+    background-color: ${mainTheme.colors.steelBlue};
+    color: ${mainTheme.colors.macAndCheese};
+  }
 
-	&.disabled {
-		background-color: ${mainTheme.colors.steelBlueTransparent};
-		color: ${mainTheme.colors.steelBlueTransparent};
-	}
+  &.disabled {
+    background-color: ${mainTheme.colors.steelBlueTransparent};
+    color: ${mainTheme.colors.steelBlueTransparent};
+  }
 
-	&.correct {
-		background-color: ${mainTheme.colors.seaGreenCrayola},
-		color: ${mainTheme.colors.steelBlue}
-	}
+  &.correct {
+    background-color: ${mainTheme.colors.seaGreenCrayola};
+    color: ${mainTheme.colors.steelBlue};
+  }
 
-	&.incorrect {
-		background-color: ${mainTheme.colors.amaranth},
-		color: ${mainTheme.colors.steelBlue}
-	}
+  &.incorrect {
+    background-color: ${mainTheme.colors.amaranth};
+    color: ${mainTheme.colors.steelBlue};
+  }
 `;
 
 const OptionIcon = styled.div`
@@ -49,9 +50,10 @@ export const QuizOption: React.FC<QuizOptionProps> = ({
   name,
   variant,
   children,
+  clicked,
 }) => {
   return (
-    <Option className={variant}>
+    <Option className={variant} onClick={clicked}>
       <OptionIcon>{children}</OptionIcon>
     </Option>
   );
