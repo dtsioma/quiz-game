@@ -1,4 +1,4 @@
-export default [
+const states = [
   {
     code: "AL",
     char: "B",
@@ -255,3 +255,5 @@ export default [
     name: "Wyoming",
   },
 ];
+
+export default states;

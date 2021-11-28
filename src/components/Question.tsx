@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
 // @ts-ignore
 import states from "../states.ts";
+import styled from "styled-components";
+import { QuizOption } from "./QuizOption";
 
 interface QuestionProps {
   setProgress: React.Dispatch<React.SetStateAction<any>>;
 }
 
+interface QuestionOption {
+  name: string;
+  char: string;
+  correct: boolean;
+  code: string;
+}
+
+const QuizOptionsWrapper = styled.div`
+  width: 320px;
+  margin: 0 auto;
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: 150px 150px;
+  grid-template-rows: 150px 150px;
+`;
+
 export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
-  const [options, setOptions] = useState<string[]>([]);
-  const [answerIdx, setAnswerIdx] = useState<number>(-1);
+  const [options, setOptions] = useState<QuestionOption[]>([]);
   const usedIndices: number[] = [];
   const generateOptions = () => {
     const opts = [];
@@ -18,22 +36,35 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
         idx = Math.floor(Math.random() * 51);
       }
       usedIndices.push(idx);
-      opts.push(states[idx].name);
-      console.log(states[idx].name);
+      const newOpt: QuestionOption = {
+        name: states[idx].name,
+        char: states[idx].char,
+        code: states[idx].code,
+        correct: false,
+      };
+      opts.push(newOpt);
     }
     return opts;
   };
 
-  const generateAnswer = (opts: string[]) => {
+  const generateAnswer = (opts: QuestionOption[]) => {
     const anIdx = Math.floor(Math.random() * 4);
-    return anIdx;
+    opts[anIdx].correct = true;
   };
 
   useEffect(() => {
     const myOptions = generateOptions();
-    const myAnswer = generateAnswer(myOptions);
-    console.log({ myOptions, myAnswer });
+    generateAnswer(myOptions);
+    setOptions(myOptions);
   }, []);
 
-  return <div></div>;
+  return (
+    <QuizOptionsWrapper>
+      {options.map((opt) => (
+        <QuizOption name={opt.name} variant="default" key={opt.code}>
+          {opt.char}
+        </QuizOption>
+      ))}
+    </QuizOptionsWrapper>
+  );
 };
