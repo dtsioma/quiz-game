@@ -95,6 +95,10 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
             name={opt.name}
             variant={getVariant(index)}
             key={opt.code}
+            displayName={
+              questionStatus === "answeredCorrectly" ||
+              questionStatus === "answeredIncorrectly"
+            }
             clicked={() => {
               answer(index);
             }}
