@@ -4,6 +4,8 @@ import states from "../states.ts";
 import styled from "styled-components";
 import { QuizOption } from "./QuizOption";
 import { mainTheme } from "../styles/theme";
+import { ProgressBar } from "./ProgressBar";
+import { QuizProgress } from "./Quiz";
 
 interface QuestionProps {
   setProgress: React.Dispatch<React.SetStateAction<any>>;
@@ -32,6 +34,7 @@ const QuestionSubtitle = styled.div`
   font-size: 24px;
   font-weight: medium;
   text-align: center;
+  margin-top: 10px;
 `;
 
 const QuestionTitle = styled.div`
@@ -86,15 +89,31 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
     setStateName(opts[anIdx].name);
   };
 
+  const nextQuestion = () => {
+    setAnswerIndex(undefined);
+    setQuestionStatus("default");
+    const myOptions = generateOptions();
+    generateAnswer(myOptions);
+    setOptions(myOptions);
+  };
+
   const answer = (index: number) => {
     setAnswerIndex(index);
     if (options[index].correct) {
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
+      setProgress((prevProgress: QuizProgress) => ({
+        done: ++prevProgress.done,
+        correct: ++prevProgress.correct,
+      }));
     } else {
       setQuestionStatus("answeredIncorrectly");
       setSubtitle("Incorrect :( This is not");
+      setProgress((prevProgress: QuizProgress) => ({
+        done: ++prevProgress.done,
+      }));
     }
+    setTimeout(nextQuestion, 3000);
   };
 
   const getVariant = (index: number) => {
@@ -108,9 +127,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   };
 
   useEffect(() => {
-    const myOptions = generateOptions();
-    generateAnswer(myOptions);
-    setOptions(myOptions);
+    nextQuestion();
   }, []);
 
   return (

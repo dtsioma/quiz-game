@@ -3,8 +3,7 @@ import { Question } from "./Question";
 import styled from "styled-components";
 import { Main } from "./Main";
 import { mainTheme } from "../styles/theme";
-
-interface QuizProps {}
+import { ProgressBar } from "./ProgressBar";
 
 export interface QuizProgress {
   done: number;
@@ -15,12 +14,17 @@ const QuizMain = styled(Main)`
   background-color: ${mainTheme.colors.lavenderWeb};
 `;
 
-export const Quiz: React.FC<QuizProps> = ({}) => {
-  const [questionCounter, setQuestionCounter] = useState(0);
-  const [progress, setProgress] = useState([]);
+const initialProgress: QuizProgress = {
+  done: 0,
+  correct: 0,
+};
+
+export const Quiz: React.FC = ({}) => {
+  const [progress, setProgress] = useState<QuizProgress>(initialProgress);
 
   return (
     <QuizMain>
+      <ProgressBar done={progress.done} />
       <Question setProgress={setProgress} />
     </QuizMain>
   );
