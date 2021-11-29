@@ -58,6 +58,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
     useState<QuestionStatus>("default");
   const [stateName, setStateName] = useState<string>();
   const [answerIndex, setAnswerIndex] = useState<number>();
+  const [subtitle, setSubtitle] = useState<string>("Show me...");
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -89,8 +90,10 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
     setAnswerIndex(index);
     if (options[index].correct) {
       setQuestionStatus("answeredCorrectly");
+      setSubtitle("Correct! This is");
     } else {
       setQuestionStatus("answeredIncorrectly");
+      setSubtitle("Incorrect :( This is not");
     }
   };
 
@@ -113,7 +116,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   return (
     <>
       <QuestionPrompt>
-        <QuestionSubtitle>Show me...</QuestionSubtitle>
+        <QuestionSubtitle>{subtitle}</QuestionSubtitle>
         <QuestionTitle>{stateName}</QuestionTitle>
       </QuestionPrompt>
       <QuizOptionsWrapper>
