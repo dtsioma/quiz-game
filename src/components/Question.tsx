@@ -62,6 +62,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const [stateName, setStateName] = useState<string>();
   const [answerIndex, setAnswerIndex] = useState<number>();
   const [subtitle, setSubtitle] = useState<string>("Show me...");
+  const [secondsLeft, setSecondsLeft] = useState<number>(10);
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -131,6 +132,28 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   useEffect(() => {
     nextQuestion();
   }, []);
+
+  useEffect(() => {
+    console.log(secondsLeft);
+  }, [secondsLeft]);
+
+  useEffect(() => {
+    let countdownInterval: NodeJS.Timeout;
+
+    if (secondsLeft > 0) {
+      countdownInterval = setInterval(() => {
+        setSecondsLeft((secLeft) => secLeft - 1);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        console.log("time is up!");
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(countdownInterval);
+    };
+  });
 
   return (
     <>
