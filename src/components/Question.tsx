@@ -92,6 +92,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const nextQuestion = () => {
     setAnswerIndex(undefined);
     setQuestionStatus("default");
+    setSubtitle("Show me...");
     const myOptions = generateOptions();
     generateAnswer(myOptions);
     setOptions(myOptions);
