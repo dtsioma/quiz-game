@@ -111,6 +111,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
       setSubtitle("Incorrect :( This is not");
       setProgress((prevProgress: QuizProgress) => ({
         done: ++prevProgress.done,
+        correct: prevProgress.correct,
       }));
     }
     setTimeout(nextQuestion, 3000);
@@ -148,7 +149,9 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
                 questionStatus === "answeredIncorrectly"
               }
               clicked={() => {
-                answer(index);
+                questionStatus !== "answeredCorrectly" &&
+                  questionStatus !== "answeredIncorrectly" &&
+                  answer(index);
               }}
             >
               {opt.char}
