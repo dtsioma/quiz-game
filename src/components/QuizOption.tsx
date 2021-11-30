@@ -16,6 +16,7 @@ const Option = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 
   &.default {
     background-color: ${mainTheme.colors.steelBlueTransparent};
