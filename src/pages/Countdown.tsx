@@ -31,7 +31,7 @@ export const Countdown: React.FC = () => {
       }, 1000);
     } else {
       setTimeout(() => {
-        navigate("/");
+        navigate("/quiz");
       }, 1000);
     }
 

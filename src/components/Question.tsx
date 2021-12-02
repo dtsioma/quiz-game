@@ -22,7 +22,33 @@ type QuestionStatus =
   | "default"
   | "hinted"
   | "answeredCorrectly"
-  | "answeredIncorrectly";
+  | "answeredIncorrectly"
+  | "notAnswered";
+
+const Timer = styled.div`
+  font-weight: medium;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  margin-top: 25px;
+`;
+
+const QuestionTimer = styled(Timer)`
+  font-size: 60px;
+  color: ${({ color }) => {
+    if (color === "green") return mainTheme.colors.seaGreenCrayola;
+    else if (color === "yellow") return mainTheme.colors.macAndCheese;
+    else if (color === "red") return mainTheme.colors.amaranth;
+    else return mainTheme.colors.steelBlue;
+  }};
+  padding: 10px;
+`;
+
+const RestTimer = styled(Timer)`
+  font-size: 35px;
+  line-height: 41px;
+  color: ${mainTheme.colors.steelBlue};
+  padding: 25px 10px;
+`;
 
 const QuestionPrompt = styled.div`
   display: flex;
@@ -62,7 +88,8 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const [stateName, setStateName] = useState<string>();
   const [answerIndex, setAnswerIndex] = useState<number>();
   const [subtitle, setSubtitle] = useState<string>("Show me...");
-  const [secondsLeft, setSecondsLeft] = useState<number>(10);
+  const [secondsLeft, setSecondsLeft] = useState<number>(15);
+  const [timerRest, setTimerRest] = useState<boolean>(false);
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -116,7 +143,8 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
         correct: prevProgress.correct,
       }));
     }
-    setTimeout(nextQuestion, 3000);
+    setTimerRest(true);
+    setSecondsLeft(5);
   };
 
   const getVariant = (index: number) => {
@@ -126,6 +154,8 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
       if (options[index].correct) return "correct";
       else if (index === answerIndex) return "incorrect";
       else return "disabled";
+    } else if (questionStatus === "notAnswered") {
+      return options[index].correct ? "active" : "disabled";
     } else return "default";
   };
 
@@ -134,29 +164,52 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   }, []);
 
   useEffect(() => {
-    console.log(secondsLeft);
-  }, [secondsLeft]);
-
-  useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
-
-    if (secondsLeft > 0) {
+    if (secondsLeft > 1) {
       countdownInterval = setInterval(() => {
         setSecondsLeft((secLeft) => secLeft - 1);
       }, 1000);
     } else {
       setTimeout(() => {
-        console.log("time is up!");
+        if (timerRest) {
+          setTimerRest(false);
+          nextQuestion();
+          setSecondsLeft(15);
+        } else {
+          setTimerRest(true);
+          setSecondsLeft(5);
+          setQuestionStatus("notAnswered");
+          setSubtitle("Now you know that this is");
+          setProgress((prevProgress: QuizProgress) => ({
+            done: ++prevProgress.done,
+            correct: prevProgress.correct,
+          }));
+        }
       }, 1000);
     }
 
     return () => {
       clearInterval(countdownInterval);
     };
-  });
+  }, [secondsLeft]);
+
+  const getTimerColor = (seconds: number) => {
+    if (seconds > 10) return "green";
+    if (seconds > 5) return "yellow";
+    else return "red";
+  };
 
   return (
     <>
+      {timerRest ? (
+        <RestTimer>Next in {secondsLeft}</RestTimer>
+      ) : (
+        <QuestionTimer color={getTimerColor(secondsLeft)}>
+          <>0:</>
+          {secondsLeft < 10 && "0"}
+          {secondsLeft}
+        </QuestionTimer>
+      )}
       <QuestionPrompt>
         <QuestionSubtitle>{subtitle}</QuestionSubtitle>
         <QuestionTitle>{stateName}</QuestionTitle>
@@ -170,7 +223,8 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
               key={opt.code}
               displayName={
                 questionStatus === "answeredCorrectly" ||
-                questionStatus === "answeredIncorrectly"
+                questionStatus === "answeredIncorrectly" ||
+                questionStatus === "notAnswered"
               }
               clicked={() => {
                 questionStatus !== "answeredCorrectly" &&
