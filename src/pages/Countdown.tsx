@@ -15,6 +15,7 @@ const CountdownMain = styled(Main)`
 const CountdownSeconds = styled.div`
   font-size: 150px;
   color: ${mainTheme.colors.steelBlue};
+  font-variant-numeric: tabular-nums;
 `;
 
 const CountdownCaption = styled.div`
