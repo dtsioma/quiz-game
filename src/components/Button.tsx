@@ -22,9 +22,8 @@ const Btn = styled.button`
     else return mainTheme.colors.steelBlue;
   }};
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   border-radius: 10px;
-  margin: auto auto 0;
 `;
 
 export const Button: React.FC<ButtonProps> = ({

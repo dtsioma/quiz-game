@@ -7,17 +7,19 @@ import { useLocation } from "react-router-dom";
 import { ProgressBar } from "./components/ProgressBar";
 import { AppContext } from "./context";
 
+const AppWrapper = styled.div.attrs((props: { bgColor: string }) => props)`
+  height: 100vh;
+  width: 100%;
+  background-color: ${(props) => props.bgColor};
+`;
+
 const Header = styled.div`
-  margin-top: 40px;
   width: 100%;
   display: grid;
   grid-template-columns: 35px auto 35px;
   justify-items: center;
   align-items: center;
-  padding: 0 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  padding: 40px 20px 0;
   box-sizing: border-box;
 `;
 
@@ -31,24 +33,23 @@ function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { state } = useContext(AppContext);
-  const { done } = state;
 
   const goToHome = () => {
     navigate("/");
   };
 
   return (
-    <>
+    <AppWrapper bgColor={state.theme.bgColor}>
       {pathname !== "/" && (
         <Header>
           <IconButton onClick={goToHome}>
             <Times variant="blue" />
           </IconButton>
-          {pathname === "/quiz" && <ProgressBar done={done} />}
+          {pathname === "/quiz" && <ProgressBar done={state.progress.done} />}
         </Header>
       )}
       <AppRoutes />
-    </>
+    </AppWrapper>
   );
 }
 

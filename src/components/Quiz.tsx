@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Question } from "./Question";
 import styled from "styled-components";
 import { Main } from "./Main";
 import { mainTheme } from "../styles/theme";
-import { useContext } from "react";
 import { AppContext } from "../context";
 
 export interface QuizProgress {
@@ -11,17 +10,18 @@ export interface QuizProgress {
   correct: number;
 }
 
-const QuizMain = styled(Main)`
-  background-color: ${mainTheme.colors.lavenderWeb};
-`;
+const QuizMain = styled(Main)``;
 
-export const Quiz: React.FC = ({}) => {
+export const Quiz: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { done } = state;
+
+  useEffect(() => {
+    dispatch({ type: "SET_BG_PURPLE" });
+  }, []);
 
   return (
     <QuizMain>
-      {done < 10 ? (
+      {state.progress.done < 10 ? (
         <Question />
       ) : (
         "You are done with the quiz!" // create QuizResult page

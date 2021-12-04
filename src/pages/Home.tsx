@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Button } from "../components/Button";
 import { mainTheme } from "../styles/theme";
 import { useNavigate } from "react-router";
 import { Main } from "../components/Main";
+import { AppContext } from "../context";
 
 const HomeMain = styled(Main)`
-  background-color: ${mainTheme.colors.lavenderWeb};
+  height: 100vh;
+  justify-content: center;
 `;
 
 const TextWrapper = styled.div`
@@ -41,6 +43,7 @@ const HomeButtonsWrapper = styled.div`
 
 const HomeButton = styled(Button)`
   margin-top: 20px;
+  font-size: 24px;
 `;
 
 export const Home: React.FC = () => {
@@ -49,6 +52,12 @@ export const Home: React.FC = () => {
   const startQuiz = () => {
     navigate("/countdown");
   };
+
+  const { dispatch } = useContext(AppContext);
+
+  useEffect(() => {
+    dispatch({ type: "SET_BG_PURPLE" });
+  }, []);
 
   return (
     <HomeMain>

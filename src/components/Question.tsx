@@ -6,6 +6,7 @@ import { QuizOption } from "./QuizOption";
 import { mainTheme } from "../styles/theme";
 import { useContext } from "react";
 import { AppContext } from "../context";
+import { Button } from "./Button";
 
 interface QuestionOption {
   name: string;
@@ -26,6 +27,10 @@ const Timer = styled.div`
   text-align: center;
   font-variant-numeric: tabular-nums;
   margin-top: 25px;
+`;
+
+const HintButton = styled(Button)`
+  margin: 50px 0;
 `;
 
 const QuestionTimer = styled(Timer)`
@@ -69,7 +74,7 @@ const QuestionTitle = styled.div`
 
 const QuizOptionsWrapper = styled.div`
   width: 320px;
-  margin: 50px auto 0;
+  margin: 40px auto 0;
   display: grid;
   column-gap: 20px;
   row-gap: 20px;
@@ -86,8 +91,9 @@ export const Question: React.FC = () => {
   const [subtitle, setSubtitle] = useState<string>("Show me...");
   const [secondsLeft, setSecondsLeft] = useState<number>(15);
   const [timerRest, setTimerRest] = useState<boolean>(false);
+  const [hintCounter, setHintCounter] = useState<number>(3);
 
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -129,18 +135,10 @@ export const Question: React.FC = () => {
     if (options[index].correct) {
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
-      // setProgress((prevProgress: QuizProgress) => ({
-      //   done: ++prevProgress.done,
-      //   correct: ++prevProgress.correct,
-      // }));
       dispatch({ type: "ANSWERED_CORRECTLY" });
     } else {
       setQuestionStatus("answeredIncorrectly");
       setSubtitle("Incorrect :( This is not");
-      // setProgress((prevProgress: QuizProgress) => ({
-      //   done: ++prevProgress.done,
-      //   correct: prevProgress.correct,
-      // }));
       dispatch({ type: "ANSWERED_INCORRECTLY" });
     }
     setTimerRest(true);
@@ -180,10 +178,6 @@ export const Question: React.FC = () => {
           setSecondsLeft(5);
           setQuestionStatus("notAnswered");
           setSubtitle("Now you know that this is");
-          // setProgress((prevProgress: QuizProgress) => ({
-          //   done: ++prevProgress.done,
-          //   correct: prevProgress.correct,
-          // }));
           dispatch({ type: "NOT_ANSWERED" });
         }
       }, 1000);
@@ -198,6 +192,12 @@ export const Question: React.FC = () => {
     if (seconds > 10) return "green";
     if (seconds > 5) return "yellow";
     else return "red";
+  };
+
+  const useHint = () => {
+    if (hintCounter <= 0) {
+      console.log("no hints left");
+    }
   };
 
   return (
@@ -239,6 +239,9 @@ export const Question: React.FC = () => {
           );
         })}
       </QuizOptionsWrapper>
+      <HintButton variant="orange" clicked={useHint}>
+        Get a Hint (3 left)
+      </HintButton>
     </>
   );
 };

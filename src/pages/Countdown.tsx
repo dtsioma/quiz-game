@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { Main } from "../components/Main";
+import { AppContext } from "../context";
 import { mainTheme } from "../styles/theme";
 
 const CountdownMain = styled(Main)`
-  background-color: ${mainTheme.colors.macAndCheese};
+  padding-bottom: 78px;
+  box-sizing: border-box;
+  justify-content: center;
+  height: calc(100% - 78px);
 `;
 
 const CountdownSeconds = styled.div`
@@ -21,6 +25,11 @@ const CountdownCaption = styled.div`
 export const Countdown: React.FC = () => {
   const [secondsLeft, setSecondsLeft] = useState(3);
   const navigate = useNavigate();
+  const { dispatch } = useContext(AppContext);
+
+  useEffect(() => {
+    dispatch({ type: "SET_BG_ORANGE" });
+  }, []);
 
   useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
