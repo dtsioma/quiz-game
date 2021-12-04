@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Countdown } from "../pages/Countdown";
 import { Home } from "../pages/Home";
-import { Quiz } from "./Quiz";
+import { Quiz } from "../pages/Quiz";
 
 export const AppRoutes: React.FC = () => {
   return (

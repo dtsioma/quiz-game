@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import { Question } from "./Question";
+import { Question } from "../components/Question";
 import styled from "styled-components";
-import { Main } from "./Main";
+import { Main } from "../components/Main";
 import { mainTheme } from "../styles/theme";
 import { AppContext } from "../context";
 
