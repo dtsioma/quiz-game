@@ -7,6 +7,7 @@ interface ButtonProps {
   variant: "blue" | "orange";
   className?: string;
   clicked?: () => void;
+  disabled?: boolean;
 }
 
 const Btn = styled.button`
@@ -24,6 +25,7 @@ const Btn = styled.button`
   border: none;
   font-size: 20px;
   border-radius: 10px;
+  opacity: ${(props: ButtonProps) => (props.disabled ? 0.5 : 1)};
 `;
 
 export const Button: React.FC<ButtonProps> = ({

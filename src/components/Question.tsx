@@ -13,6 +13,7 @@ interface QuestionOption {
   char: string;
   correct: boolean;
   code: string;
+  hinted: boolean;
 }
 
 type QuestionStatus =
@@ -31,6 +32,7 @@ const Timer = styled.div`
 
 const HintButton = styled(Button)`
   margin: 50px 0;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
 const QuestionTimer = styled(Timer)`
@@ -95,6 +97,10 @@ export const Question: React.FC = () => {
 
   const { dispatch } = useContext(AppContext);
 
+  useEffect(() => {
+    console.log(questionStatus);
+  }, [questionStatus]);
+
   const usedIndices: number[] = [];
   const generateOptions = () => {
     const opts = [];
@@ -109,6 +115,7 @@ export const Question: React.FC = () => {
         char: states[idx].char,
         code: states[idx].code,
         correct: false,
+        hinted: false,
       };
       opts.push(newOpt);
     }
@@ -154,6 +161,8 @@ export const Question: React.FC = () => {
       else return "disabled";
     } else if (questionStatus === "notAnswered") {
       return options[index].correct ? "active" : "disabled";
+    } else if (questionStatus === "hinted") {
+      return options[index].hinted ? "active" : "disabled";
     } else return "default";
   };
 
@@ -195,9 +204,31 @@ export const Question: React.FC = () => {
   };
 
   const useHint = () => {
+    if (questionStatus !== "default") return;
     if (hintCounter <= 0) {
       console.log("no hints left");
     }
+    // hint correct
+    for (let i = 0; i < 4; ++i) {
+      if (options[i].correct) {
+        const opts = [...options];
+        opts[i].hinted = true;
+        setOptions(opts);
+      }
+    }
+    // hint incorrect
+    let hintedIncorrect = false;
+    do {
+      const index = Math.round(Math.random() * 4);
+      if (!options[index].correct && !options[index].hinted) {
+        const opts = [...options];
+        opts[index].hinted = true;
+        setOptions(opts);
+        hintedIncorrect = true;
+      }
+    } while (!hintedIncorrect);
+    setQuestionStatus("hinted");
+    setHintCounter((prev) => --prev);
   };
 
   return (
@@ -239,8 +270,22 @@ export const Question: React.FC = () => {
           );
         })}
       </QuizOptionsWrapper>
-      <HintButton variant="orange" clicked={useHint}>
-        Get a Hint (3 left)
+      <HintButton
+        variant="orange"
+        clicked={useHint}
+        disabled={questionStatus !== "default" || hintCounter <= 0}
+      >
+        {questionStatus !== "hinted" ? (
+          <>
+            {hintCounter > 0 ? (
+              <>Get a Hint ({hintCounter} left)</>
+            ) : (
+              <>All hints used</>
+            )}
+          </>
+        ) : (
+          <>Hint Used ({hintCounter} left)</>
+        )}
       </HintButton>
     </>
   );
