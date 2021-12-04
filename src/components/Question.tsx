@@ -4,12 +4,8 @@ import states from "../states.ts";
 import styled from "styled-components";
 import { QuizOption } from "./QuizOption";
 import { mainTheme } from "../styles/theme";
-import { ProgressBar } from "./ProgressBar";
-import { QuizProgress } from "./Quiz";
-
-interface QuestionProps {
-  setProgress: React.Dispatch<React.SetStateAction<any>>;
-}
+import { useContext } from "react";
+import { AppContext } from "../context";
 
 interface QuestionOption {
   name: string;
@@ -81,7 +77,7 @@ const QuizOptionsWrapper = styled.div`
   grid-template-rows: 150px 150px;
 `;
 
-export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
+export const Question: React.FC = () => {
   const [options, setOptions] = useState<QuestionOption[]>([]);
   const [questionStatus, setQuestionStatus] =
     useState<QuestionStatus>("default");
@@ -90,6 +86,8 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
   const [subtitle, setSubtitle] = useState<string>("Show me...");
   const [secondsLeft, setSecondsLeft] = useState<number>(15);
   const [timerRest, setTimerRest] = useState<boolean>(false);
+
+  const { state, dispatch } = useContext(AppContext);
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -131,17 +129,19 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
     if (options[index].correct) {
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
-      setProgress((prevProgress: QuizProgress) => ({
-        done: ++prevProgress.done,
-        correct: ++prevProgress.correct,
-      }));
+      // setProgress((prevProgress: QuizProgress) => ({
+      //   done: ++prevProgress.done,
+      //   correct: ++prevProgress.correct,
+      // }));
+      dispatch({ type: "ANSWERED_CORRECTLY" });
     } else {
       setQuestionStatus("answeredIncorrectly");
       setSubtitle("Incorrect :( This is not");
-      setProgress((prevProgress: QuizProgress) => ({
-        done: ++prevProgress.done,
-        correct: prevProgress.correct,
-      }));
+      // setProgress((prevProgress: QuizProgress) => ({
+      //   done: ++prevProgress.done,
+      //   correct: prevProgress.correct,
+      // }));
+      dispatch({ type: "ANSWERED_INCORRECTLY" });
     }
     setTimerRest(true);
     setSecondsLeft(5);
@@ -180,10 +180,11 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
           setSecondsLeft(5);
           setQuestionStatus("notAnswered");
           setSubtitle("Now you know that this is");
-          setProgress((prevProgress: QuizProgress) => ({
-            done: ++prevProgress.done,
-            correct: prevProgress.correct,
-          }));
+          // setProgress((prevProgress: QuizProgress) => ({
+          //   done: ++prevProgress.done,
+          //   correct: prevProgress.correct,
+          // }));
+          dispatch({ type: "NOT_ANSWERED" });
         }
       }, 1000);
     }
@@ -229,6 +230,7 @@ export const Question: React.FC<QuestionProps> = ({ setProgress }) => {
               clicked={() => {
                 questionStatus !== "answeredCorrectly" &&
                   questionStatus !== "answeredIncorrectly" &&
+                  !timerRest &&
                   answer(index);
               }}
             >

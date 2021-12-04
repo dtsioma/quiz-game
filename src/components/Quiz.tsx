@@ -3,7 +3,8 @@ import { Question } from "./Question";
 import styled from "styled-components";
 import { Main } from "./Main";
 import { mainTheme } from "../styles/theme";
-import { ProgressBar } from "./ProgressBar";
+import { useContext } from "react";
+import { AppContext } from "../context";
 
 export interface QuizProgress {
   done: number;
@@ -14,23 +15,14 @@ const QuizMain = styled(Main)`
   background-color: ${mainTheme.colors.lavenderWeb};
 `;
 
-const initialProgress: QuizProgress = {
-  done: 0,
-  correct: 0,
-};
-
 export const Quiz: React.FC = ({}) => {
-  const [progress, setProgress] = useState<QuizProgress>(initialProgress);
-
-  useEffect(() => {
-    console.log(progress);
-  }, [progress]);
+  const { state, dispatch } = useContext(AppContext);
+  const { done } = state;
 
   return (
     <QuizMain>
-      <ProgressBar done={progress.done} />
-      {progress.done < 10 ? (
-        <Question setProgress={setProgress} />
+      {done < 10 ? (
+        <Question />
       ) : (
         "You are done with the quiz!" // create QuizResult page
       )}
