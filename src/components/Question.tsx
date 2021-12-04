@@ -35,6 +35,10 @@ const HintButton = styled(Button)`
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
+const NextButton = styled(Button)`
+  margin: 50px 0;
+`;
+
 const QuestionTimer = styled(Timer)`
   font-size: 60px;
   color: ${({ color }) => {
@@ -228,7 +232,13 @@ export const Question: React.FC = () => {
       }
     } while (!hintedIncorrect);
     setQuestionStatus("hinted");
-    setHintCounter((prev) => --prev);
+    setHintCounter((prev) => prev - 1);
+  };
+
+  const goToNextQuestion = () => {
+    setTimerRest(false);
+    nextQuestion();
+    setSecondsLeft(15);
   };
 
   return (
@@ -270,23 +280,31 @@ export const Question: React.FC = () => {
           );
         })}
       </QuizOptionsWrapper>
-      <HintButton
-        variant="orange"
-        clicked={useHint}
-        disabled={questionStatus !== "default" || hintCounter <= 0}
-      >
-        {questionStatus !== "hinted" ? (
-          <>
-            {hintCounter > 0 ? (
-              <>Get a Hint ({hintCounter} left)</>
-            ) : (
-              <>All hints used</>
-            )}
-          </>
-        ) : (
-          <>Hint Used ({hintCounter} left)</>
-        )}
-      </HintButton>
+      {questionStatus === "answeredCorrectly" ||
+      questionStatus === "answeredIncorrectly" ||
+      questionStatus === "notAnswered" ? (
+        <NextButton variant="blue" width="300px" clicked={goToNextQuestion}>
+          Next
+        </NextButton>
+      ) : (
+        <HintButton
+          variant="orange"
+          clicked={useHint}
+          disabled={questionStatus !== "default" || hintCounter <= 0}
+        >
+          {questionStatus !== "hinted" ? (
+            <>
+              {hintCounter > 0 ? (
+                <>Get a Hint ({hintCounter} left)</>
+              ) : (
+                <>All hints used</>
+              )}
+            </>
+          ) : (
+            <>Hint Used ({hintCounter} left)</>
+          )}
+        </HintButton>
+      )}
     </>
   );
 };
