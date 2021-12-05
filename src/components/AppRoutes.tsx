@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Countdown } from "../pages/Countdown";
 import { Home } from "../pages/Home";
 import { Quiz } from "../pages/Quiz";

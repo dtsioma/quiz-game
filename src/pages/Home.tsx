@@ -58,6 +58,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     dispatch({ type: "SET_BG_PURPLE" });
     dispatch({ type: "HIDE_HEADER" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

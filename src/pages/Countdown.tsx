@@ -39,6 +39,7 @@ export const Countdown: React.FC = () => {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);
 
   useEffect(() => {

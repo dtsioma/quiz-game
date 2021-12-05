@@ -177,6 +177,7 @@ export const Question: React.FC = () => {
 
   useEffect(() => {
     nextQuestion();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -208,6 +209,7 @@ export const Question: React.FC = () => {
     return () => {
       clearInterval(countdownInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondsLeft]);
 
   const getTimerColor = (seconds: number) => {

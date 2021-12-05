@@ -52,13 +52,14 @@ const ResultsButton = styled(Button)`
   margin-top: 20px;
 `;
 
-export const Results: React.FC = ({}) => {
+export const Results: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch({ type: "SET_BG_PURPLE" });
     dispatch({ type: "SHOW_HEADER" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const goToHome = () => {
