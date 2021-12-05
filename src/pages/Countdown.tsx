@@ -30,6 +30,7 @@ export const Countdown: React.FC = () => {
 
   useEffect(() => {
     dispatch({ type: "SET_BG_ORANGE" });
+    dispatch({ type: "SHOW_HEADER" });
   }, []);
 
   useEffect(() => {

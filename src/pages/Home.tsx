@@ -57,6 +57,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     dispatch({ type: "SET_BG_PURPLE" });
+    dispatch({ type: "HIDE_HEADER" });
   }, []);
 
   return (

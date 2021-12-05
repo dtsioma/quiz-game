@@ -42,7 +42,7 @@ const states = [
   {
     code: "DC",
     char: "y",
-    name: "District Of Columbia",
+    name: "DC",
   },
   {
     code: "FL",

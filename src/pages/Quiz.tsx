@@ -2,8 +2,8 @@ import React, { useEffect, useContext } from "react";
 import { Question } from "../components/Question";
 import styled from "styled-components";
 import { Main } from "../components/Main";
-import { mainTheme } from "../styles/theme";
 import { AppContext } from "../context";
+import { Navigate } from "react-router-dom";
 
 export interface QuizProgress {
   done: number;
@@ -17,15 +17,13 @@ export const Quiz: React.FC = () => {
 
   useEffect(() => {
     dispatch({ type: "SET_BG_PURPLE" });
+    dispatch({ type: "SHOW_HEADER" });
+    dispatch({ type: "RESET_PROGRESS" });
   }, []);
 
   return (
     <QuizMain>
-      {state.progress.done < 10 ? (
-        <Question />
-      ) : (
-        "You are done with the quiz!" // create QuizResult page
-      )}
+      <Question />
     </QuizMain>
   );
 };

@@ -19,6 +19,7 @@ export interface ProgressStateProps {
 
 export interface ThemeStateProps {
   bgColor: string;
+  showHeader: boolean;
 }
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   },
   theme: {
     bgColor: mainTheme.colors.lavenderWeb,
+    showHeader: false,
   },
 };
 

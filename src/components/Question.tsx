@@ -7,6 +7,7 @@ import { mainTheme } from "../styles/theme";
 import { useContext } from "react";
 import { AppContext } from "../context";
 import { Button } from "./Button";
+import { useNavigate } from "react-router";
 
 interface QuestionOption {
   name: string;
@@ -98,8 +99,12 @@ export const Question: React.FC = () => {
   const [secondsLeft, setSecondsLeft] = useState<number>(15);
   const [timerRest, setTimerRest] = useState<boolean>(false);
   const [hintCounter, setHintCounter] = useState<number>(3);
+  const navigate = useNavigate();
 
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const {
+    progress: { done },
+  } = state;
 
   useEffect(() => {
     console.log(questionStatus);
@@ -184,13 +189,17 @@ export const Question: React.FC = () => {
       setTimeout(() => {
         if (timerRest) {
           setTimerRest(false);
-          nextQuestion();
+          if (done < 10) {
+            nextQuestion();
+          } else {
+            goToResults();
+          }
           setSecondsLeft(15);
         } else {
           setTimerRest(true);
           setSecondsLeft(5);
           setQuestionStatus("notAnswered");
-          setSubtitle("Now you know that this is");
+          setSubtitle("This was");
           dispatch({ type: "NOT_ANSWERED" });
         }
       }, 1000);
@@ -208,7 +217,7 @@ export const Question: React.FC = () => {
   };
 
   const useHint = () => {
-    if (questionStatus !== "default") return;
+    if (questionStatus !== "default" || hintCounter <= 0) return;
     if (hintCounter <= 0) {
       console.log("no hints left");
     }
@@ -241,10 +250,17 @@ export const Question: React.FC = () => {
     setSecondsLeft(15);
   };
 
+  const goToResults = () => {
+    navigate("/results");
+  };
+
   return (
     <>
       {timerRest ? (
-        <RestTimer>Next in {secondsLeft}</RestTimer>
+        <RestTimer>
+          {state.progress.done < 10 ? "Next " : "Results "}
+          in {secondsLeft}
+        </RestTimer>
       ) : (
         <QuestionTimer color={getTimerColor(secondsLeft)}>
           <>0:</>
@@ -283,8 +299,12 @@ export const Question: React.FC = () => {
       {questionStatus === "answeredCorrectly" ||
       questionStatus === "answeredIncorrectly" ||
       questionStatus === "notAnswered" ? (
-        <NextButton variant="blue" width="300px" clicked={goToNextQuestion}>
-          Next
+        <NextButton
+          variant="blue"
+          width="300px"
+          clicked={done < 10 ? goToNextQuestion : goToResults}
+        >
+          {done < 10 ? "Next" : "Go to Results"}
         </NextButton>
       ) : (
         <HintButton

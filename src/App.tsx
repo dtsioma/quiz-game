@@ -40,7 +40,7 @@ function App() {
 
   return (
     <AppWrapper bgColor={state.theme.bgColor}>
-      {pathname !== "/" && (
+      {state.theme.showHeader && (
         <Header>
           <IconButton onClick={goToHome}>
             <Times variant="blue" />
