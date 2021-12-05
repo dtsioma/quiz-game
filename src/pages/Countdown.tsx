@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import styled from "styled-components";
 import { Main } from "../components/Main";
 import { AppContext } from "../context";
 import { mainTheme } from "../styles/theme";
+import { Loading } from "../components/Loading";
 
 const CountdownMain = styled(Main)`
   padding-bottom: 78px;
@@ -24,14 +25,21 @@ const CountdownCaption = styled.div`
 `;
 
 export const Countdown: React.FC = () => {
-  const [secondsLeft, setSecondsLeft] = useState(3);
+  const location = useLocation();
   const navigate = useNavigate();
+  const [secondsLeft, setSecondsLeft] = useState(3);
+  const [loading, setLoading] = useState<boolean>(true);
   const { dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch({ type: "SET_BG_ORANGE" });
-    dispatch({ type: "SHOW_HEADER" });
-  }, []);
+    if (location.state && location.state.continue) {
+      dispatch({ type: "SET_BG_ORANGE" });
+      dispatch({ type: "SHOW_HEADER" });
+      setLoading(false);
+    } else {
+      navigate("/");
+    }
+  }, [location.state]);
 
   useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
@@ -51,7 +59,9 @@ export const Countdown: React.FC = () => {
     };
   });
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <CountdownMain>
       <CountdownSeconds>
         {secondsLeft > 0 ? `0${secondsLeft}` : "GO!"}

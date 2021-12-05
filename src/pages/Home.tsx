@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
   const navigate = useNavigate();
 
   const startQuiz = () => {
-    navigate("/countdown");
+    navigate("/countdown", { state: { continue: true } });
   };
 
   const { dispatch } = useContext(AppContext);
