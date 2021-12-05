@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from "react";
-import { Question } from "../components/Question";
+import { Question } from "../../components/question/Question";
 import styled from "styled-components";
-import { Main } from "../components/Main";
-import { AppContext } from "../context";
+import { Main } from "../../components/main/MainStyled";
+import { AppContext } from "../../context";
 
 export interface QuizProgress {
   done: number;

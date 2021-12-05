@@ -1,56 +1,15 @@
 import React, { useContext, useEffect } from "react";
-import { AppContext } from "../context";
-import styled from "styled-components";
-import { Main } from "../components/Main";
-import { mainTheme } from "../styles/theme";
-import { Button } from "../components/Button";
+import { AppContext } from "../../context";
 import { useNavigate } from "react-router";
-
-const ResultsMain = styled(Main)`
-  height: calc(100% - 78px);
-
-  justify-content: center;
-`;
-
-const ResultsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  text-align: center;
-`;
-
-const Title = styled.h1`
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  color: ${mainTheme.colors.steelBlue};
-`;
-
-const Score = styled.div`
-  font-size: 24px;
-  color: ${mainTheme.colors.steelBlue};
-  margin-top: 20px;
-`;
-
-const ScoreLarge = styled.div`
-  font-size: 80px;
-  font-weight: bold;
-  color: ${mainTheme.colors.steelBlue};
-  margin: 10px 0;
-`;
-
-const ResultsButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: auto auto 60px;
-`;
-
-const ResultsButton = styled(Button)`
-  font-size: 24px;
-  margin-top: 20px;
-`;
+import {
+  ResultsMain,
+  ResultsWrapper,
+  Title,
+  Score,
+  ScoreLarge,
+  ResultsButtonsWrapper,
+  ResultsButton,
+} from "./ResultsStyled";
 
 export const Results: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);

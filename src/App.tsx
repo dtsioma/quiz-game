@@ -1,33 +1,11 @@
 import { useContext } from "react";
-import styled from "styled-components";
-import { AppRoutes } from "./components/AppRoutes";
+import { AppRoutes } from "./components/appRoutes/AppRoutes";
 import { Times } from "./components/icons/Times";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
-import { ProgressBar } from "./components/ProgressBar";
+import { ProgressBar } from "./components/progressBar/ProgressBar";
 import { AppContext } from "./context";
-
-const AppWrapper = styled.div.attrs((props: { bgColor: string }) => props)`
-  height: 100vh;
-  width: 100%;
-  background-color: ${(props) => props.bgColor};
-`;
-
-const Header = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 35px auto 35px;
-  justify-items: center;
-  align-items: center;
-  padding: 40px 20px 0;
-  box-sizing: border-box;
-`;
-
-const IconButton = styled.button`
-  padding: 0;
-  background: none;
-  border: none;
-`;
+import { AppWrapper, Header, IconButton } from "./AppStyled";
 
 function App() {
   const { pathname } = useLocation();

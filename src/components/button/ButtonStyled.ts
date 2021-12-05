@@ -1,16 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { mainTheme } from "../styles/theme";
+import { css } from "styled-components";
+import { ButtonProps } from "./Button";
+import { mainTheme } from "../../styles/theme";
 
-interface ButtonProps {
-  width?: string;
-  variant: "blue" | "orange";
-  className?: string;
-  clicked?: () => void;
-  disabled?: boolean;
-}
-
-const Btn = styled.button`
+export const BtnStyles = css`
   width: ${(props: ButtonProps) => props.width || "auto"};
   padding: 15px;
   text-align: center;
@@ -27,22 +19,3 @@ const Btn = styled.button`
   border-radius: 10px;
   opacity: ${(props: ButtonProps) => (props.disabled ? 0.5 : 1)};
 `;
-
-export const Button: React.FC<ButtonProps> = ({
-  width,
-  variant,
-  className,
-  children,
-  clicked,
-}) => {
-  return (
-    <Btn
-      className={className}
-      width={width}
-      variant={variant}
-      onClick={clicked}
-    >
-      {children}
-    </Btn>
-  );
-};

@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 // @ts-ignore
-import states from "../states.ts";
-import styled from "styled-components";
-import { QuizOption } from "./QuizOption";
-import { mainTheme } from "../styles/theme";
+import states from "../../states.ts";
+import { QuizOption } from "../quizOption/QuizOption";
 import { useContext } from "react";
-import { AppContext } from "../context";
-import { Button } from "./Button";
+import { AppContext } from "../../context";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
+import {
+  HintButton,
+  NextButton,
+  Timer,
+  RestTimer,
+  QuestionTimerStyles,
+  QuestionPrompt,
+  QuestionSubtitle,
+  QuestionTitle,
+  QuizOptionsWrapper,
+} from "./QuestionStyled";
 
 interface QuestionOption {
   name: string;
@@ -24,69 +33,8 @@ type QuestionStatus =
   | "answeredIncorrectly"
   | "notAnswered";
 
-const Timer = styled.div`
-  font-weight: medium;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  margin-top: 25px;
-`;
-
-const HintButton = styled(Button)`
-  margin: 50px 0;
-  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
-`;
-
-const NextButton = styled(Button)`
-  margin: 50px 0;
-`;
-
 const QuestionTimer = styled(Timer)`
-  font-size: 60px;
-  color: ${({ color }) => {
-    if (color === "green") return mainTheme.colors.seaGreenCrayola;
-    else if (color === "yellow") return mainTheme.colors.macAndCheese;
-    else if (color === "red") return mainTheme.colors.amaranth;
-    else return mainTheme.colors.steelBlue;
-  }};
-  padding: 10px;
-`;
-
-const RestTimer = styled(Timer)`
-  font-size: 35px;
-  line-height: 41px;
-  color: ${mainTheme.colors.steelBlue};
-  padding: 25px 10px;
-`;
-
-const QuestionPrompt = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const QuestionSubtitle = styled.div`
-  font-size: 24px;
-  font-weight: medium;
-  text-align: center;
-  margin-top: 10px;
-`;
-
-const QuestionTitle = styled.div`
-  color: ${mainTheme.colors.steelBlue};
-  font-size: 48px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
-`;
-
-const QuizOptionsWrapper = styled.div`
-  width: 320px;
-  margin: 40px auto 0;
-  display: grid;
-  column-gap: 20px;
-  row-gap: 20px;
-  grid-template-columns: 150px 150px;
-  grid-template-rows: 150px 150px;
+  ${QuestionTimerStyles}
 `;
 
 export const Question: React.FC = () => {

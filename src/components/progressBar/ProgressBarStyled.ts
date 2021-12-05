@@ -1,16 +1,7 @@
-import React from "react";
 import styled from "styled-components";
-import { mainTheme } from "../styles/theme";
+import { mainTheme } from "../../styles/theme";
 
-interface ProgressBarProps {
-  done: number;
-}
-
-interface FilledPortionProps {
-  done: number;
-}
-
-const Bar = styled.div`
+export const Bar = styled.div`
   width: 250px;
   border-radius: 10px;
   background-color: ${mainTheme.colors.steelBlue};
@@ -19,7 +10,9 @@ const Bar = styled.div`
   overflow: hidden;
 `;
 
-const FilledPortion = styled.div<FilledPortionProps>`
+export const FilledPortion = styled.div.attrs(
+  (props: { done: number }) => props
+)`
   border-radius: 10px 0 0 10px;
   width: calc(5% + ${(props) => props.done} * 10%);
   height: 100%;
@@ -30,11 +23,3 @@ const FilledPortion = styled.div<FilledPortionProps>`
   z-index: 9;
   transition: all 0.3s ease;
 `;
-
-export const ProgressBar: React.FC<ProgressBarProps> = ({ done }) => {
-  return (
-    <Bar>
-      <FilledPortion done={done} />
-    </Bar>
-  );
-};

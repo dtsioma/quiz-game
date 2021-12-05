@@ -1,0 +1,25 @@
+import styled from "styled-components";
+
+export const AppWrapper = styled.div.attrs(
+  (props: { bgColor: string }) => props
+)`
+  height: 100vh;
+  width: 100%;
+  background-color: ${(props) => props.bgColor};
+`;
+
+export const Header = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 35px auto 35px;
+  justify-items: center;
+  align-items: center;
+  padding: 40px 20px 0;
+  box-sizing: border-box;
+`;
+
+export const IconButton = styled.button`
+  padding: 0;
+  background: none;
+  border: none;
+`;

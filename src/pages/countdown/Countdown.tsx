@@ -1,28 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router";
-import styled from "styled-components";
-import { Main } from "../components/Main";
-import { AppContext } from "../context";
-import { mainTheme } from "../styles/theme";
-import { Loading } from "../components/Loading";
-
-const CountdownMain = styled(Main)`
-  padding-bottom: 78px;
-  box-sizing: border-box;
-  justify-content: center;
-  height: calc(100% - 78px);
-`;
-
-const CountdownSeconds = styled.div`
-  font-size: 150px;
-  color: ${mainTheme.colors.steelBlue};
-  font-variant-numeric: tabular-nums;
-`;
-
-const CountdownCaption = styled.div`
-  font-size: 24px;
-  color: ${mainTheme.colors.steelBlue};
-`;
+import { AppContext } from "../../context";
+import { Loading } from "../../components/loading/Loading";
+import {
+  CountdownMain,
+  CountdownSeconds,
+  CountdownCaption,
+} from "./CountdownStyled";
 
 export const Countdown: React.FC = () => {
   const location = useLocation();
