@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import {
   ResultsMain,
   ResultsWrapper,
@@ -10,14 +10,22 @@ import {
   ResultsButtonsWrapper,
   ResultsButton,
 } from "./ResultsStyled";
+import { Loading } from "../../components/loading/Loading";
 
 export const Results: React.FC = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true);
+  const { state, dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch({ type: "SET_BG_PURPLE" });
-    dispatch({ type: "SHOW_HEADER" });
+    if (location.state && location.state.continue) {
+      dispatch({ type: "SET_BG_PURPLE" });
+      dispatch({ type: "SHOW_HEADER" });
+      setLoading(false);
+    } else {
+      navigate("/");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,7 +37,9 @@ export const Results: React.FC = () => {
     navigate("/countdown");
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <ResultsMain>
       <ResultsWrapper>
         <Title>Good Job!</Title>

@@ -8,10 +8,10 @@ import { Results } from "../../pages/results/Results";
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
       <Route path="/countdown" element={<Countdown />} />
       <Route path="/quiz" element={<Quiz />} />
       <Route path="/results" element={<Results />} />
+      <Route path="/*" element={<Home />} />
     </Routes>
   );
 };

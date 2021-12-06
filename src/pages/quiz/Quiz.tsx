@@ -1,8 +1,10 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Question } from "../../components/question/Question";
 import styled from "styled-components";
 import { Main } from "../../components/main/MainStyled";
 import { AppContext } from "../../context";
+import { useLocation, useNavigate } from "react-router";
+import { Loading } from "../../components/loading/Loading";
 
 export interface QuizProgress {
   done: number;
@@ -12,16 +14,26 @@ export interface QuizProgress {
 const QuizMain = styled(Main)``;
 
 export const Quiz: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { dispatch } = useContext(AppContext);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    dispatch({ type: "SET_BG_PURPLE" });
-    dispatch({ type: "SHOW_HEADER" });
-    dispatch({ type: "RESET_PROGRESS" });
+    if (location.state && location.state.continue) {
+      dispatch({ type: "SET_BG_PURPLE" });
+      dispatch({ type: "SHOW_HEADER" });
+      dispatch({ type: "RESET_PROGRESS" });
+      setLoading(false);
+    } else {
+      navigate("/");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <QuizMain>
       <Question />
     </QuizMain>
