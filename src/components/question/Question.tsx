@@ -182,7 +182,7 @@ export const Question: React.FC = () => {
     // hint incorrect
     let hintedIncorrect = false;
     do {
-      const index = Math.round(Math.random() * 4);
+      const index = Math.floor(Math.random() * 4);
       if (!options[index].correct && !options[index].hinted) {
         const opts = [...options];
         opts[index].hinted = true;
