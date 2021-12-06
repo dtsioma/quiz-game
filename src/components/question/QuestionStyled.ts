@@ -12,10 +12,6 @@ export const HintButton = styled(Button).attrs(
   @media ${devices.iphone7Plus} {
     margin: 35px 0;
   }
-
-  @media ${devices.ipad} {
-    margin: 100px 0 0;
-  }
 `;
 
 export const NextButton = styled(Button)`
@@ -23,10 +19,6 @@ export const NextButton = styled(Button)`
 
   @media ${devices.iphone7Plus} {
     margin: 35px 0;
-  }
-
-  @media ${devices.ipad} {
-    margin: 100px 0 0;
   }
 `;
 

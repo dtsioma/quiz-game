@@ -201,7 +201,7 @@ export const Question: React.FC = () => {
   };
 
   const goToResults = () => {
-    navigate("/results");
+    navigate("/results", { state: { continue: true } });
   };
 
   return (
