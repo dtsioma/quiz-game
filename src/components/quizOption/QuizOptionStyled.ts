@@ -9,6 +9,7 @@ export const Option = styled.div`
   justify-content: center;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 
   &.default {
     background-color: ${mainTheme.colors.steelBlueTransparent};

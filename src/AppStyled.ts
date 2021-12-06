@@ -26,5 +26,6 @@ export const Header = styled.div`
 export const IconButton = styled.button`
   padding: 0;
   background: none;
+  cursor: pointer;
   border: none;
 `;

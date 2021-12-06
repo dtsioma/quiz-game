@@ -18,6 +18,7 @@ export const BtnStyles = css`
   font-size: 20px;
   border-radius: 10px;
   opacity: ${(props: ButtonProps) => (props.disabled ? 0.5 : 1)};
+  cursor: pointer;
 
   @media ${devices.ipad} {
     font-size: 24px;
