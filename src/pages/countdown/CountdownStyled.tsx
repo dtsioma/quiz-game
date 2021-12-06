@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Main } from "../../components/main/MainStyled";
-import { mainTheme } from "../../styles/theme";
+import { mainTheme, devices } from "../../styles/theme";
 
 export const CountdownMain = styled(Main)`
   padding-bottom: 78px;
@@ -18,4 +18,8 @@ export const CountdownSeconds = styled.div`
 export const CountdownCaption = styled.div`
   font-size: 24px;
   color: ${mainTheme.colors.steelBlue};
+
+  @media ${devices.ipad} {
+    font-size: 30px;
+  }
 `;

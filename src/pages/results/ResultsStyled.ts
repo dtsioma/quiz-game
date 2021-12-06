@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { Main } from "../../components/main/MainStyled";
-import { mainTheme } from "../../styles/theme";
+import { devices, mainTheme } from "../../styles/theme";
 import { Button } from "../../components/button/Button";
 
 export const ResultsMain = styled(Main)`
   height: calc(100% - 78px);
   justify-content: center;
+
+  @media ${devices.iphone7Plus} {
+    height: calc(100% - 58px);
+  }
 `;
 
 export const ResultsWrapper = styled.div`

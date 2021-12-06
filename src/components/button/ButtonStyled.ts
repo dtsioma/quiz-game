@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { ButtonProps } from "./Button";
-import { mainTheme } from "../../styles/theme";
+import { devices, mainTheme } from "../../styles/theme";
 
 export const BtnStyles = css`
   width: ${(props: ButtonProps) => props.width || "auto"};
@@ -18,4 +18,8 @@ export const BtnStyles = css`
   font-size: 20px;
   border-radius: 10px;
   opacity: ${(props: ButtonProps) => (props.disabled ? 0.5 : 1)};
+
+  @media ${devices.ipad} {
+    font-size: 24px;
+  }
 `;

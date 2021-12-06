@@ -1,21 +1,44 @@
 import styled, { css } from "styled-components";
 import { mainTheme } from "../../styles/theme";
 import { Button } from "../button/Button";
+import { devices } from "../../styles/theme";
 
-export const HintButton = styled(Button)`
+export const HintButton = styled(Button).attrs(
+  (props: { disabled: boolean }) => props
+)`
   margin: 50px 0;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+
+  @media ${devices.iphone7Plus} {
+    margin: 35px 0;
+  }
+
+  @media ${devices.ipad} {
+    margin: 100px 0 0;
+  }
 `;
 
 export const NextButton = styled(Button)`
   margin: 50px 0;
+
+  @media ${devices.iphone7Plus} {
+    margin: 35px 0;
+  }
+
+  @media ${devices.ipad} {
+    margin: 100px 0 0;
+  }
 `;
 
 export const Timer = styled.div`
-  font-weight: medium;
+  font-weight: 500;
   text-align: center;
   font-variant-numeric: tabular-nums;
   margin-top: 25px;
+
+  @media ${devices.iphone7Plus} {
+    margin-top: 10px;
+  }
 `;
 
 export const QuestionTimerStyles = css`
@@ -44,9 +67,13 @@ export const QuestionPrompt = styled.div`
 
 export const QuestionSubtitle = styled.div`
   font-size: 24px;
-  font-weight: medium;
+  font-weight: 500;
   text-align: center;
   margin-top: 10px;
+
+  @media ${devices.ipad} {
+    font-size: 30px;
+  }
 `;
 
 export const QuestionTitle = styled.div`
@@ -55,6 +82,10 @@ export const QuestionTitle = styled.div`
   font-weight: bold;
   margin-top: 20px;
   text-align: center;
+
+  @media ${devices.ipad} {
+    font-size: 60px;
+  }
 `;
 
 export const QuizOptionsWrapper = styled.div`
@@ -65,4 +96,15 @@ export const QuizOptionsWrapper = styled.div`
   row-gap: 20px;
   grid-template-columns: 150px 150px;
   grid-template-rows: 150px 150px;
+
+  @media ${devices.iphone7Plus} {
+    margin: 20px auto 0;
+  }
+
+  @media ${devices.ipad} {
+    width: 660px;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows: 150px;
+    margin: 60px auto 0;
+  }
 `;

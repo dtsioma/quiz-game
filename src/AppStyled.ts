@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "./styles/theme";
 
 export const AppWrapper = styled.div.attrs(
   (props: { bgColor: string }) => props
@@ -16,6 +17,10 @@ export const Header = styled.div`
   align-items: center;
   padding: 40px 20px 0;
   box-sizing: border-box;
+
+  @media ${devices.iphone7Plus} {
+    padding: 20px 20px 0;
+  }
 `;
 
 export const IconButton = styled.button`
