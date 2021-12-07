@@ -111,11 +111,14 @@ export const Question: React.FC = () => {
 
   const getPoints = () => {
     let points;
+    // calculate depending on time
     if (secondsLeft >= 10) {
       points = 10;
     } else {
       points = 10 - Math.ceil((10 - secondsLeft) / 2);
     }
+    // subtract points for used hints (-2 for each)
+    points -= (hintCounter - 3) * 2;
     return points;
   };
 

@@ -6,7 +6,7 @@ import {
   ResultsWrapper,
   Title,
   Score,
-  ScoreLarge,
+  ScorePoints,
   ResultsButtonsWrapper,
   ResultsButton,
 } from "./ResultsStyled";
@@ -44,9 +44,10 @@ export const Results: React.FC = () => {
       <ResultsWrapper>
         <Title>Good Job!</Title>
         <Score>Your score is</Score>
-        <ScoreLarge>
-          {state.progress.correct}/{state.progress.done}
-        </ScoreLarge>
+        <ScorePoints>
+          {state.progress.points}
+          <small>/100</small>
+        </ScorePoints>
       </ResultsWrapper>
       <ResultsButtonsWrapper>
         <ResultsButton variant="blue" width="300px" clicked={goToHome}>

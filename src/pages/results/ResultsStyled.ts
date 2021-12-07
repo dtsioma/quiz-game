@@ -33,11 +33,15 @@ export const Score = styled.div`
   margin-top: 20px;
 `;
 
-export const ScoreLarge = styled.div`
+export const ScorePoints = styled.div`
   font-size: 80px;
   font-weight: bold;
   color: ${mainTheme.colors.steelBlue};
   margin: 10px 0;
+
+  & small {
+    font-size: 24px;
+  }
 `;
 
 export const ResultsButtonsWrapper = styled.div`
