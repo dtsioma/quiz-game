@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mainTheme } from "../../styles/theme";
+import { devices, mainTheme } from "../../styles/theme";
 
 export const Option = styled.div`
   width: 150px;
@@ -35,6 +35,11 @@ export const Option = styled.div`
     background-color: ${mainTheme.colors.amaranth};
     color: ${mainTheme.colors.steelBlue};
   }
+
+  @media ${devices.iphone7Plus} {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 export const OptionName = styled.span`
@@ -49,4 +54,8 @@ export const OptionName = styled.span`
 export const OptionIcon = styled.div`
   font-size: 96px;
   font-family: StateFace;
+
+  @media ${devices.iphone7Plus} {
+    font-size: 75px;
+  }
 `;

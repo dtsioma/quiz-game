@@ -90,6 +90,11 @@ export const QuizOptionsWrapper = styled.div`
   grid-template-rows: 150px 150px;
 
   @media ${devices.iphone7Plus} {
+    width: 250px;
+    grid-template-columns: 120px 120px;
+    grid-template-rows: 120px 120px;
+    column-gap: 15px;
+    row-gap: 15px;
     margin: 20px auto 0;
   }
 

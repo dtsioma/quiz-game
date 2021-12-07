@@ -5,7 +5,7 @@ export const AppWrapper = styled.div.attrs(
   (props: { bgColor: string }) => props
 )`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   background-color: ${(props) => props.bgColor};
 `;
 
