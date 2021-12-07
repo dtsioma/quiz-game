@@ -54,10 +54,6 @@ export const Question: React.FC = () => {
     progress: { done },
   } = state;
 
-  useEffect(() => {
-    console.log(questionStatus);
-  }, [questionStatus]);
-
   const usedIndices: number[] = [];
   const generateOptions = () => {
     const opts = [];
@@ -97,16 +93,30 @@ export const Question: React.FC = () => {
   const answer = (index: number) => {
     setAnswerIndex(index);
     if (options[index].correct) {
+      // correct answer
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
-      dispatch({ type: "ANSWERED_CORRECTLY" });
+      const points = getPoints();
+      console.log(`points: ${points}`);
+      dispatch({ type: "ANSWERED_CORRECTLY", payload: { points } });
     } else {
+      // incorrect answer
       setQuestionStatus("answeredIncorrectly");
       setSubtitle("Incorrect :( This is not");
       dispatch({ type: "ANSWERED_INCORRECTLY" });
     }
     setTimerRest(true);
     setSecondsLeft(5);
+  };
+
+  const getPoints = () => {
+    let points;
+    if (secondsLeft >= 10) {
+      points = 10;
+    } else {
+      points = 10 - Math.ceil((10 - secondsLeft) / 2);
+    }
+    return points;
   };
 
   const getVariant = (index: number) => {

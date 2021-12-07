@@ -2,7 +2,7 @@ import { ProgressStateProps, ThemeStateProps } from "./context";
 import { mainTheme } from "./styles/theme";
 
 export type ProgressAction =
-  | { type: "ANSWERED_CORRECTLY" }
+  | { type: "ANSWERED_CORRECTLY"; payload: { points: number } }
   | { type: "ANSWERED_INCORRECTLY" }
   | { type: "NOT_ANSWERED" }
   | { type: "RESET_PROGRESS" };
@@ -24,6 +24,7 @@ export const progressReducer = (
         ...state,
         done: ++state.done,
         correct: ++state.correct,
+        points: state.points + action.payload.points,
       };
     case "ANSWERED_INCORRECTLY":
     case "NOT_ANSWERED":
