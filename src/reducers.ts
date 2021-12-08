@@ -5,7 +5,8 @@ export type ProgressAction =
   | { type: "ANSWERED_CORRECTLY"; payload: { points: number } }
   | { type: "ANSWERED_INCORRECTLY" }
   | { type: "NOT_ANSWERED" }
-  | { type: "RESET_PROGRESS" };
+  | { type: "RESET_PROGRESS" }
+  | { type: "SET_TOTAL_TIME"; payload: { totalSeconds: number } };
 
 export type ThemeAction =
   | { type: "SET_BG_PURPLE" }
@@ -31,6 +32,11 @@ export const progressReducer = (
       return {
         ...state,
         done: ++state.done,
+      };
+    case "SET_TOTAL_TIME":
+      return {
+        ...state,
+        totalSeconds: action.payload.totalSeconds,
       };
     case "RESET_PROGRESS":
       return {

@@ -47,6 +47,7 @@ export const Question: React.FC = () => {
   const [secondsLeft, setSecondsLeft] = useState<number>(15);
   const [timerRest, setTimerRest] = useState<boolean>(false);
   const [hintCounter, setHintCounter] = useState<number>(3);
+  const [startTime] = useState<number>(Date.now());
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(AppContext);
@@ -94,10 +95,9 @@ export const Question: React.FC = () => {
     setAnswerIndex(index);
     if (options[index].correct) {
       // correct answer
+      const points = getPoints();
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
-      const points = getPoints();
-      console.log(`points: ${points}`);
       dispatch({ type: "ANSWERED_CORRECTLY", payload: { points } });
     } else {
       // incorrect answer
@@ -118,7 +118,9 @@ export const Question: React.FC = () => {
       points = 10 - Math.ceil((10 - secondsLeft) / 2);
     }
     // subtract points for used hints (-2 for each)
-    points -= (hintCounter - 3) * 2;
+    if (questionStatus === "hinted") {
+      points -= 2;
+    }
     return points;
   };
 
@@ -154,7 +156,7 @@ export const Question: React.FC = () => {
           if (done < 10) {
             nextQuestion();
           } else {
-            goToResults();
+            finishQuiz();
           }
           setSecondsLeft(15);
         } else {
@@ -213,7 +215,11 @@ export const Question: React.FC = () => {
     setSecondsLeft(15);
   };
 
-  const goToResults = () => {
+  const finishQuiz = () => {
+    const finishTime = Date.now();
+    const totalSeconds =
+      Math.round(Math.abs(finishTime - startTime) / 100) / 10;
+    dispatch({ type: "SET_TOTAL_TIME", payload: { totalSeconds } });
     navigate("/results", { state: { continue: true } });
   };
 
@@ -265,7 +271,7 @@ export const Question: React.FC = () => {
         <NextButton
           variant="blue"
           width="300px"
-          clicked={done < 10 ? goToNextQuestion : goToResults}
+          clicked={done < 10 ? goToNextQuestion : finishQuiz}
         >
           {done < 10 ? "Next" : "Go to Results"}
         </NextButton>

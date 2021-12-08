@@ -44,6 +44,12 @@ export const ScorePoints = styled.div`
   }
 `;
 
+export const TotalTime = styled.div`
+  font-size: 24px;
+  color: ${mainTheme.colors.steelBlue};
+  margin-top: 10px;
+`;
+
 export const ResultsButtonsWrapper = styled.div`
   display: flex;
   align-items: center;

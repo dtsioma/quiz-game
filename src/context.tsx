@@ -16,6 +16,7 @@ export interface ProgressStateProps {
   done: number;
   correct: number;
   points: number;
+  totalSeconds: number;
 }
 
 export interface ThemeStateProps {
@@ -28,6 +29,7 @@ const initialState = {
     done: 0,
     correct: 0,
     points: 0,
+    totalSeconds: 0,
   },
   theme: {
     bgColor: mainTheme.colors.lavenderWeb,

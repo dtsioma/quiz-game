@@ -9,6 +9,7 @@ import {
   ScorePoints,
   ResultsButtonsWrapper,
   ResultsButton,
+  TotalTime,
 } from "./ResultsStyled";
 import { Loading } from "../../components/loading/Loading";
 
@@ -48,6 +49,17 @@ export const Results: React.FC = () => {
           {state.progress.points}
           <small>/100</small>
         </ScorePoints>
+        <TotalTime>
+          Total time:{" "}
+          {state.progress.totalSeconds >= 60 ? (
+            <>
+              {Math.floor(state.progress.totalSeconds / 60)}:
+              {Math.round(state.progress.totalSeconds % 60)}
+            </>
+          ) : (
+            <> {state.progress.totalSeconds} sec</>
+          )}
+        </TotalTime>
       </ResultsWrapper>
       <ResultsButtonsWrapper>
         <ResultsButton variant="blue" width="300px" clicked={goToHome}>
