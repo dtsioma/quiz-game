@@ -15,4 +15,5 @@ export const Paragraph = styled.p.attrs(
   font-weight: 500;
   padding: 0 20px;
   text-align: ${(props) => (props.centered ? "center" : "left")};
+  margin: 0;
 `;
