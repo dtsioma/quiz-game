@@ -18,7 +18,7 @@ import {
   QuizOptionsWrapper,
 } from "./QuestionStyled";
 
-interface QuestionOption {
+export interface QuestionOption {
   name: string;
   char: string;
   correct: boolean;
