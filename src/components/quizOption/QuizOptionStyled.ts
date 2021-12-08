@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { mainTheme } from "../../styles/theme";
 
-export const Option = styled.div`
-  width: 150px;
-  height: 150px;
+export const Option = styled.div.attrs((props: { mini?: boolean }) => props)`
+  width: ${(props) => (props.mini ? "80px" : "150px")};
+  height: ${(props) => (props.mini ? "80px" : "150px")};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +46,9 @@ export const OptionName = styled.span`
   font-size: 12px;
 `;
 
-export const OptionIcon = styled.div`
-  font-size: 96px;
+export const OptionIcon = styled.div.attrs(
+  (props: { mini?: boolean }) => props
+)`
+  font-size: ${(props) => (props.mini ? "51px" : "96px")};
   font-family: StateFace;
 `;

@@ -26,7 +26,7 @@ export interface QuestionOption {
   hinted: boolean;
 }
 
-type QuestionStatus =
+export type QuestionStatus =
   | "default"
   | "hinted"
   | "answeredCorrectly"
