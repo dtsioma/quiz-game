@@ -52,6 +52,7 @@ export const progressReducer = (
         ...state,
         done: 0,
         correct: 0,
+        points: 0,
       };
     default:
       return state;

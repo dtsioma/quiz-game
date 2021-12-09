@@ -121,6 +121,7 @@ export const Question: React.FC = () => {
     if (questionStatus === "hinted") {
       points -= 2;
     }
+    console.log(points);
     return points;
   };
 
@@ -220,6 +221,13 @@ export const Question: React.FC = () => {
     const totalSeconds =
       Math.round(Math.abs(finishTime - startTime) / 100) / 10;
     dispatch({ type: "SET_TOTAL_TIME", payload: { totalSeconds } });
+    let scores = [...state.highScores.scores];
+    scores.push(state.progress.points);
+    scores.sort((a, b) => b - a);
+    if (scores.length > 3) {
+      scores = scores.slice(0, 3);
+    }
+    dispatch({ type: "UPDATE_HIGH_SCORES", payload: { highScores: scores } });
     navigate("/results", { state: { continue: true } });
   };
 
