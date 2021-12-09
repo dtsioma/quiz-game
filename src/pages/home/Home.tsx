@@ -32,6 +32,15 @@ export const Home: React.FC = () => {
         <Subtitle>How many you can guess?</Subtitle>
       </TextWrapper>
       <HomeButtonsWrapper>
+        <HomeButton
+          width="300px"
+          variant="blue"
+          clicked={() => {
+            navigate("/how-to-play");
+          }}
+        >
+          How To Play
+        </HomeButton>
         <HomeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
         </HomeButton>
