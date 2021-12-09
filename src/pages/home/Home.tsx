@@ -41,6 +41,15 @@ export const Home: React.FC = () => {
         >
           How To Play
         </HomeButton>
+        <HomeButton
+          width="300px"
+          variant="blue"
+          clicked={() => {
+            navigate("/high-scores");
+          }}
+        >
+          High Scores
+        </HomeButton>
         <HomeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
         </HomeButton>
