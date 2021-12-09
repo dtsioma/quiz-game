@@ -1,4 +1,8 @@
-import { ProgressStateProps, ThemeStateProps } from "./context";
+import {
+  HighScoresStateProps,
+  ProgressStateProps,
+  ThemeStateProps,
+} from "./context";
 import { mainTheme } from "./styles/theme";
 
 export type ProgressAction =
@@ -14,6 +18,11 @@ export type ThemeAction =
   | { type: "SET_BG_BLUE" }
   | { type: "SHOW_HEADER" }
   | { type: "HIDE_HEADER" };
+
+export type HighScoresAction = {
+  type: "UPDATE_HIGH_SCORES";
+  payload: { highScores: number[] };
+};
 
 export const progressReducer = (
   state: ProgressStateProps,
@@ -75,6 +84,21 @@ export const themeReducer = (state: ThemeStateProps, action: ThemeAction) => {
       return {
         ...state,
         showHeader: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const highScoresReducer = (
+  state: HighScoresStateProps,
+  action: HighScoresAction
+) => {
+  switch (action.type) {
+    case "UPDATE_HIGH_SCORES":
+      return {
+        ...state,
+        scores: action.payload.highScores,
       };
     default:
       return state;
