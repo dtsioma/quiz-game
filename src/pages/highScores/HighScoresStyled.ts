@@ -25,13 +25,15 @@ export const HighScoresButtonsWrapper = styled.div`
 export const TubesWrapper = styled.div`
   width: 300px;
   height: 300px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  column-gap: 15px;
+  align-items: end;
 `;
 
 export const Tube = styled.div.attrs(
-  (props: { height: number; variant: "orange" | "blue" }) => props
+  (props: { height: number; variant: "orange" | "blue"; disabled?: boolean }) =>
+    props
 )`
   background-color: ${(props) =>
     props.variant === "orange"
@@ -47,4 +49,13 @@ export const Tube = styled.div.attrs(
   text-align: center;
   padding: 15px;
   box-sizing: border-box;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+
+  &:first-child {
+    min-height: 132px;
+  }
+
+  &:last-child {
+    min-height: 66px;
+  }
 `;

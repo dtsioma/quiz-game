@@ -34,17 +34,29 @@ export const HighScores: React.FC = () => {
       <Heading>High Scores</Heading>
       {scores.length > 0 ? (
         <TubesWrapper>
-          {scores[1] && (
+          {scores[1] ? (
             <Tube height={(300 / scores[0]) * scores[1]} variant="blue">
               {scores[1]}
+            </Tube>
+          ) : (
+            <Tube height={225} variant="blue" disabled>
+              ?
             </Tube>
           )}
           <Tube height={300} variant="orange">
             {scores[0]}
           </Tube>
-          {scores[2] && (
+          {scores[2] ? (
             <Tube height={(300 / scores[0]) * scores[2]} variant="blue">
               {scores[2]}
+            </Tube>
+          ) : (
+            <Tube
+              height={scores[1] ? (150 / scores[0]) * scores[1] : 150}
+              variant="blue"
+              disabled
+            >
+              ?
             </Tube>
           )}
         </TubesWrapper>
