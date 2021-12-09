@@ -228,6 +228,7 @@ export const Question: React.FC = () => {
       scores = scores.slice(0, 3);
     }
     dispatch({ type: "UPDATE_HIGH_SCORES", payload: { highScores: scores } });
+    localStorage.setItem("dts__quiz__high_scores", JSON.stringify(scores));
     navigate("/results", { state: { continue: true } });
   };
 
