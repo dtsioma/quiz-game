@@ -39,6 +39,8 @@ export const RandomQuizOptions: React.FC = () => {
   const [questionStatus, setQuestionStatus] =
     useState<QuestionStatus>("default");
   const [answerIndex, setAnswerIndex] = useState<number>();
+  const [runAnimation, setRunAnimation] = useState<number>(0);
+
   const simulateCorrect = () => {
     setQuestionStatus("answeredCorrectly");
     setAnswerIndex(2);
@@ -75,28 +77,45 @@ export const RandomQuizOptions: React.FC = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     setTimeout(() => {
-      simulateCorrect();
+      isMounted && simulateCorrect();
       setTimeout(() => {
-        resetAnswer();
+        isMounted && resetAnswer();
         setTimeout(() => {
-          simulateIncorrect();
+          isMounted && simulateIncorrect();
           setTimeout(() => {
-            resetAnswer();
+            isMounted && resetAnswer();
             setTimeout(() => {
-              simulateHint();
+              isMounted && simulateHint();
               setTimeout(() => {
-                simulateCorrect();
+                isMounted && simulateCorrect();
                 setTimeout(() => {
-                  resetAnswer();
-                }, 1000);
-              }, 1000);
-            }, 1000);
-          }, 1000);
-        }, 1000);
-      }, 1000);
-    }, 1000);
-  }, []);
+                  isMounted && resetAnswer();
+                  setTimeout(() => {
+                    isMounted && simulateHint();
+                    setTimeout(() => {
+                      isMounted && simulateIncorrect();
+                      setTimeout(() => {
+                        if (isMounted) {
+                          resetAnswer();
+                          setRunAnimation((num) => num + 1);
+                        }
+                      }, 1500);
+                    }, 1500);
+                  }, 1500);
+                }, 1500);
+              }, 1500);
+            }, 1500);
+          }, 1500);
+        }, 1500);
+      }, 1500);
+    }, 1500);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [runAnimation]);
 
   return (
     <OptionsWrapper>
