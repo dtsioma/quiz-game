@@ -35,7 +35,7 @@ export const Results: React.FC = () => {
   };
 
   const tryAgain = () => {
-    navigate("/countdown");
+    navigate("/countdown", { state: { continue: true } });
   };
 
   return loading ? (
