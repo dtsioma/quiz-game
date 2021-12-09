@@ -9,6 +9,8 @@ import {
   HighScoresMain,
   ScoresNotFound,
   HighScoresButtonsWrapper,
+  TubesWrapper,
+  Tube,
 } from "./HighScoresStyled";
 
 export const HighScores: React.FC = () => {
@@ -31,7 +33,21 @@ export const HighScores: React.FC = () => {
     <HighScoresMain>
       <Heading>High Scores</Heading>
       {scores.length > 0 ? (
-        <>High scores found!</>
+        <TubesWrapper>
+          {scores[1] && (
+            <Tube height={(300 / scores[0]) * scores[1]} variant="blue">
+              {scores[1]}
+            </Tube>
+          )}
+          <Tube height={300} variant="orange">
+            {scores[0]}
+          </Tube>
+          {scores[2] && (
+            <Tube height={(300 / scores[0]) * scores[2]} variant="blue">
+              {scores[2]}
+            </Tube>
+          )}
+        </TubesWrapper>
       ) : (
         <ScoresNotFound>
           You don't have any high scores yet. Let's play your first game!

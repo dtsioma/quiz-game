@@ -43,7 +43,7 @@ const initialState = {
     showHeader: false,
   },
   highScores: {
-    scores: [],
+    scores: [92, 77, 54],
   },
 };
 
