@@ -15,13 +15,6 @@ export const ScoresNotFound = styled.div`
   line-height: 1.5;
 `;
 
-export const HighScoresButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto 40px;
-`;
-
 export const TubesWrapper = styled.div`
   width: 300px;
   height: 300px;

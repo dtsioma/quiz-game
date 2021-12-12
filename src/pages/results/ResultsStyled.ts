@@ -50,13 +50,6 @@ export const TotalTime = styled.div`
   margin-top: 10px;
 `;
 
-export const ResultsButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: auto auto 60px;
-`;
-
 export const ResultsButton = styled(Button)`
   font-size: 24px;
   margin-top: 20px;

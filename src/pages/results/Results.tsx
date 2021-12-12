@@ -7,11 +7,11 @@ import {
   Title,
   Score,
   ScorePoints,
-  ResultsButtonsWrapper,
   ResultsButton,
   TotalTime,
 } from "./ResultsStyled";
 import { Loading } from "../../components/loading/Loading";
+import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const Results: React.FC = () => {
   const location = useLocation();
@@ -61,14 +61,14 @@ export const Results: React.FC = () => {
           )}
         </TotalTime>
       </ResultsWrapper>
-      <ResultsButtonsWrapper>
+      <ButtonsWrapper>
         <ResultsButton variant="blue" width="300px" clicked={goToHome}>
           Main menu
         </ResultsButton>
         <ResultsButton variant="orange" width="300px" clicked={tryAgain}>
           Try again
         </ResultsButton>
-      </ResultsButtonsWrapper>
+      </ButtonsWrapper>
     </ResultsMain>
   );
 };

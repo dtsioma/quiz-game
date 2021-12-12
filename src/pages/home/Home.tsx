@@ -6,9 +6,9 @@ import {
   TextWrapper,
   Title,
   Subtitle,
-  HomeButtonsWrapper,
   HomeButton,
 } from "./HomeStyled";
+import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
         <Title>State Quiz</Title>
         <Subtitle>How many you can guess?</Subtitle>
       </TextWrapper>
-      <HomeButtonsWrapper>
+      <ButtonsWrapper>
         <HomeButton
           width="300px"
           variant="blue"
@@ -53,7 +53,7 @@ export const Home: React.FC = () => {
         <HomeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
         </HomeButton>
-      </HomeButtonsWrapper>
+      </ButtonsWrapper>
     </HomeMain>
   );
 };

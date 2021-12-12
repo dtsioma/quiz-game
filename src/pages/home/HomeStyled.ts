@@ -39,13 +39,6 @@ export const Subtitle = styled.h3`
   }
 `;
 
-export const HomeButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: auto auto 60px;
-`;
-
 export const HomeButton = styled(Button)`
   margin-top: 20px;
   font-size: 24px;

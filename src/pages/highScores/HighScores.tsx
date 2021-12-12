@@ -8,10 +8,10 @@ import { HomeButton } from "../home/HomeStyled";
 import {
   HighScoresMain,
   ScoresNotFound,
-  HighScoresButtonsWrapper,
   TubesWrapper,
   Tube,
 } from "./HighScoresStyled";
+import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const HighScores: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -66,7 +66,7 @@ export const HighScores: React.FC = () => {
           You don't have any high scores yet. Let's play your first game!
         </ScoresNotFound>
       )}
-      <HighScoresButtonsWrapper>
+      <ButtonsWrapper noMarginTop>
         <HomeButton width="300px" variant="orange" clicked={startQuiz}>
           Play
         </HomeButton>
@@ -79,7 +79,7 @@ export const HighScores: React.FC = () => {
         >
           Main menu
         </HomeButton>
-      </HighScoresButtonsWrapper>
+      </ButtonsWrapper>
     </HighScoresMain>
   );
 };

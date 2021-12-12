@@ -15,10 +15,3 @@ export const HTPParagraph = styled(Paragraph)`
     margin-top: 30px;
   }
 `;
-
-export const HTPButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: auto auto 40px;
-`;
