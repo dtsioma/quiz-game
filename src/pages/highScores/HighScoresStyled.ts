@@ -1,11 +1,5 @@
 import styled from "styled-components";
-import { Main } from "../../components/main/MainStyled";
 import { mainTheme } from "../../styles/theme";
-
-export const HighScoresMain = styled(Main)`
-  height: calc(100% - 78px);
-  justify-content: space-between;
-`;
 
 export const ScoresNotFound = styled.div`
   width: 320px;

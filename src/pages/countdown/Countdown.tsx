@@ -2,11 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { AppContext } from "../../context";
 import { Loading } from "../../components/loading/Loading";
-import {
-  CountdownMain,
-  CountdownSeconds,
-  CountdownCaption,
-} from "./CountdownStyled";
+import { CountdownSeconds, CountdownCaption } from "./CountdownStyled";
+import { Main } from "../../components/main/MainStyled";
 
 export const Countdown: React.FC = () => {
   const location = useLocation();
@@ -47,11 +44,11 @@ export const Countdown: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <CountdownMain>
+    <Main withPaddingBottom justifyContent="center">
       <CountdownSeconds>
         {secondsLeft > 0 ? `0${secondsLeft}` : "GO!"}
       </CountdownSeconds>
       {secondsLeft > 0 && <CountdownCaption>Get ready!</CountdownCaption>}
-    </CountdownMain>
+    </Main>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context";
 import { useLocation, useNavigate } from "react-router";
 import {
-  ResultsMain,
   ResultsWrapper,
   Title,
   Score,
@@ -12,6 +11,7 @@ import {
 import { LargeButton } from "../../components/largeButton/LargeButton";
 import { Loading } from "../../components/loading/Loading";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
+import { Main } from "../../components/main/MainStyled";
 
 export const Results: React.FC = () => {
   const location = useLocation();
@@ -41,7 +41,7 @@ export const Results: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <ResultsMain>
+    <Main justifyContent="center">
       <ResultsWrapper>
         <Title>Good Job!</Title>
         <Score>Your score is</Score>
@@ -69,6 +69,6 @@ export const Results: React.FC = () => {
           Try again
         </LargeButton>
       </ButtonsWrapper>
-    </ResultsMain>
+    </Main>
   );
 };

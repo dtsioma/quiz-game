@@ -1,11 +1,5 @@
 import styled from "styled-components";
 import { devices, mainTheme } from "../../styles/theme";
-import { Main } from "../../components/main/MainStyled";
-
-export const HomeMain = styled(Main)`
-  height: 100vh;
-  justify-content: center;
-`;
 
 export const TextWrapper = styled.div`
   display: flex;

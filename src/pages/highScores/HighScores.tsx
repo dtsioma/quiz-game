@@ -4,14 +4,10 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { Heading } from "../../components/typography/TypographyStyled";
 import { AppContext } from "../../context";
-import {
-  HighScoresMain,
-  ScoresNotFound,
-  TubesWrapper,
-  Tube,
-} from "./HighScoresStyled";
+import { ScoresNotFound, TubesWrapper, Tube } from "./HighScoresStyled";
 import { LargeButton } from "../../components/largeButton/LargeButton";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
+import { Main } from "../../components/main/MainStyled";
 
 export const HighScores: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -31,7 +27,7 @@ export const HighScores: React.FC = () => {
   };
 
   return (
-    <HighScoresMain>
+    <Main justifyContent="space-between">
       <Heading>High Scores</Heading>
       {scores.length > 0 ? (
         <TubesWrapper>
@@ -80,6 +76,6 @@ export const HighScores: React.FC = () => {
           Main menu
         </LargeButton>
       </ButtonsWrapper>
-    </HighScoresMain>
+    </Main>
   );
 };

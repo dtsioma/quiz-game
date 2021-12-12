@@ -1,13 +1,5 @@
 import styled from "styled-components";
-import { Main } from "../../components/main/MainStyled";
 import { mainTheme, devices } from "../../styles/theme";
-
-export const CountdownMain = styled(Main)`
-  padding-bottom: 78px;
-  box-sizing: border-box;
-  justify-content: center;
-  height: calc(100% - 78px);
-`;
 
 export const CountdownSeconds = styled.div`
   font-size: 150px;

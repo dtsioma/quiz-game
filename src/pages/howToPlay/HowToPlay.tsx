@@ -4,9 +4,10 @@ import { useNavigate } from "react-router";
 import { RandomQuizOptions } from "../../components/randomQuizOptions/RandomQuizOptions";
 import { Heading } from "../../components/typography/TypographyStyled";
 import { AppContext } from "../../context";
-import { HTPMain, HTPTextWrapper, HTPParagraph } from "./HowToPlayStyled";
+import { HTPTextWrapper, HTPParagraph } from "./HowToPlayStyled";
 import { LargeButton } from "../../components/largeButton/LargeButton";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
+import { Main } from "../../components/main/MainStyled";
 
 export const HowToPlay: React.FC = () => {
   const { dispatch } = useContext(AppContext);
@@ -27,7 +28,7 @@ export const HowToPlay: React.FC = () => {
   };
 
   return (
-    <HTPMain>
+    <Main>
       <Heading>How To Play</Heading>
       <HTPTextWrapper>
         <HTPParagraph centered>
@@ -50,6 +51,6 @@ export const HowToPlay: React.FC = () => {
           Main menu
         </LargeButton>
       </ButtonsWrapper>
-    </HTPMain>
+    </Main>
   );
 };
