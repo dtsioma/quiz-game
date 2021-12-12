@@ -5,7 +5,7 @@ import { RandomQuizOptions } from "../../components/randomQuizOptions/RandomQuiz
 import { Heading } from "../../components/typography/TypographyStyled";
 import { AppContext } from "../../context";
 import { HTPMain, HTPTextWrapper, HTPParagraph } from "./HowToPlayStyled";
-import { HomeButton } from "../home/HomeStyled";
+import { LargeButton } from "../../components/largeButton/LargeButton";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const HowToPlay: React.FC = () => {
@@ -43,12 +43,12 @@ export const HowToPlay: React.FC = () => {
       </HTPTextWrapper>
       <RandomQuizOptions />
       <ButtonsWrapper>
-        <HomeButton width="300px" variant="orange" clicked={startQuiz}>
+        <LargeButton width="300px" variant="orange" clicked={startQuiz}>
           Play
-        </HomeButton>
-        <HomeButton width="300px" variant="blue" clicked={goToHomePage}>
+        </LargeButton>
+        <LargeButton width="300px" variant="blue" clicked={goToHomePage}>
           Main menu
-        </HomeButton>
+        </LargeButton>
       </ButtonsWrapper>
     </HTPMain>
   );

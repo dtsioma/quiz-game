@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Main } from "../../components/main/MainStyled";
 import { devices, mainTheme } from "../../styles/theme";
-import { Button } from "../../components/button/Button";
 
 export const ResultsMain = styled(Main)`
   height: calc(100% - 78px);
@@ -48,9 +47,4 @@ export const TotalTime = styled.div`
   font-size: 24px;
   color: ${mainTheme.colors.steelBlue};
   margin-top: 10px;
-`;
-
-export const ResultsButton = styled(Button)`
-  font-size: 24px;
-  margin-top: 20px;
 `;

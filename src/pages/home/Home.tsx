@@ -1,13 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { AppContext } from "../../context";
-import {
-  HomeMain,
-  TextWrapper,
-  Title,
-  Subtitle,
-  HomeButton,
-} from "./HomeStyled";
+import { HomeMain, TextWrapper, Title, Subtitle } from "./HomeStyled";
+import { LargeButton } from "../../components/largeButton/LargeButton";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const Home: React.FC = () => {
@@ -32,7 +27,7 @@ export const Home: React.FC = () => {
         <Subtitle>How many you can guess?</Subtitle>
       </TextWrapper>
       <ButtonsWrapper>
-        <HomeButton
+        <LargeButton
           width="300px"
           variant="blue"
           clicked={() => {
@@ -40,8 +35,8 @@ export const Home: React.FC = () => {
           }}
         >
           How To Play
-        </HomeButton>
-        <HomeButton
+        </LargeButton>
+        <LargeButton
           width="300px"
           variant="blue"
           clicked={() => {
@@ -49,10 +44,10 @@ export const Home: React.FC = () => {
           }}
         >
           High Scores
-        </HomeButton>
-        <HomeButton width="300px" variant="orange" clicked={startQuiz}>
+        </LargeButton>
+        <LargeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
-        </HomeButton>
+        </LargeButton>
       </ButtonsWrapper>
     </HomeMain>
   );

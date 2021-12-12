@@ -4,13 +4,13 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { Heading } from "../../components/typography/TypographyStyled";
 import { AppContext } from "../../context";
-import { HomeButton } from "../home/HomeStyled";
 import {
   HighScoresMain,
   ScoresNotFound,
   TubesWrapper,
   Tube,
 } from "./HighScoresStyled";
+import { LargeButton } from "../../components/largeButton/LargeButton";
 import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
 
 export const HighScores: React.FC = () => {
@@ -67,10 +67,10 @@ export const HighScores: React.FC = () => {
         </ScoresNotFound>
       )}
       <ButtonsWrapper noMarginTop>
-        <HomeButton width="300px" variant="orange" clicked={startQuiz}>
+        <LargeButton width="300px" variant="orange" clicked={startQuiz}>
           Play
-        </HomeButton>
-        <HomeButton
+        </LargeButton>
+        <LargeButton
           width="300px"
           variant="blue"
           clicked={() => {
@@ -78,7 +78,7 @@ export const HighScores: React.FC = () => {
           }}
         >
           Main menu
-        </HomeButton>
+        </LargeButton>
       </ButtonsWrapper>
     </HighScoresMain>
   );
