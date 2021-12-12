@@ -19,6 +19,7 @@ export const HowToPlay: React.FC = () => {
   useEffect(() => {
     dispatch({ type: "SHOW_HEADER" });
     dispatch({ type: "SET_BG_PURPLE" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startQuiz = () => {

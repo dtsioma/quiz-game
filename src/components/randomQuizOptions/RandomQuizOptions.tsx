@@ -35,7 +35,7 @@ const randomOptions: QuestionOption[] = [
 ];
 
 export const RandomQuizOptions: React.FC = () => {
-  const [options, setOptions] = useState<QuestionOption[]>(randomOptions);
+  const [options] = useState<QuestionOption[]>(randomOptions);
   const [questionStatus, setQuestionStatus] =
     useState<QuestionStatus>("default");
   const [answerIndex, setAnswerIndex] = useState<number>();
@@ -115,6 +115,7 @@ export const RandomQuizOptions: React.FC = () => {
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runAnimation]);
 
   return (
