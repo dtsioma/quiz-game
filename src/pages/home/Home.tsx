@@ -1,14 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { AppContext } from "../../context";
-import {
-  HomeMain,
-  TextWrapper,
-  Title,
-  Subtitle,
-  HomeButtonsWrapper,
-  HomeButton,
-} from "./HomeStyled";
+import { TextWrapper, Title, Subtitle } from "./HomeStyled";
+import { LargeButton } from "../../components/largeButton/LargeButton";
+import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
+import { Main } from "../../components/main/MainStyled";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -26,16 +22,34 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <HomeMain>
+    <Main justifyContent="space-between" fullHeight>
       <TextWrapper>
         <Title>State Quiz</Title>
         <Subtitle>How many you can guess?</Subtitle>
       </TextWrapper>
-      <HomeButtonsWrapper>
-        <HomeButton width="300px" variant="orange" clicked={startQuiz}>
+      <ButtonsWrapper>
+        <LargeButton
+          width="300px"
+          variant="blue"
+          clicked={() => {
+            navigate("/how-to-play");
+          }}
+        >
+          How To Play
+        </LargeButton>
+        <LargeButton
+          width="300px"
+          variant="blue"
+          clicked={() => {
+            navigate("/high-scores");
+          }}
+        >
+          High Scores
+        </LargeButton>
+        <LargeButton width="300px" variant="orange" clicked={startQuiz}>
           Start
-        </HomeButton>
-      </HomeButtonsWrapper>
-    </HomeMain>
+        </LargeButton>
+      </ButtonsWrapper>
+    </Main>
   );
 };

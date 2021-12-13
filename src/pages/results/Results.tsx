@@ -2,15 +2,16 @@ import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context";
 import { useLocation, useNavigate } from "react-router";
 import {
-  ResultsMain,
   ResultsWrapper,
   Title,
   Score,
-  ScoreLarge,
-  ResultsButtonsWrapper,
-  ResultsButton,
+  ScorePoints,
+  TotalTime,
 } from "./ResultsStyled";
+import { LargeButton } from "../../components/largeButton/LargeButton";
 import { Loading } from "../../components/loading/Loading";
+import { ButtonsWrapper } from "../../components/buttonsWrapper/ButtonsWrapper";
+import { Main } from "../../components/main/MainStyled";
 
 export const Results: React.FC = () => {
   const location = useLocation();
@@ -34,28 +35,40 @@ export const Results: React.FC = () => {
   };
 
   const tryAgain = () => {
-    navigate("/countdown");
+    navigate("/countdown", { state: { continue: true } });
   };
 
   return loading ? (
     <Loading />
   ) : (
-    <ResultsMain>
+    <Main justifyContent="center">
       <ResultsWrapper>
         <Title>Good Job!</Title>
         <Score>Your score is</Score>
-        <ScoreLarge>
-          {state.progress.correct}/{state.progress.done}
-        </ScoreLarge>
+        <ScorePoints>
+          {state.progress.points}
+          <small>/100</small>
+        </ScorePoints>
+        <TotalTime>
+          Total time:{" "}
+          {state.progress.totalSeconds >= 60 ? (
+            <>
+              {Math.floor(state.progress.totalSeconds / 60)}:
+              {Math.round(state.progress.totalSeconds % 60)}
+            </>
+          ) : (
+            <> {state.progress.totalSeconds} sec</>
+          )}
+        </TotalTime>
       </ResultsWrapper>
-      <ResultsButtonsWrapper>
-        <ResultsButton variant="blue" width="300px" clicked={goToHome}>
+      <ButtonsWrapper>
+        <LargeButton variant="blue" width="300px" clicked={goToHome}>
           Main menu
-        </ResultsButton>
-        <ResultsButton variant="orange" width="300px" clicked={tryAgain}>
+        </LargeButton>
+        <LargeButton variant="orange" width="300px" clicked={tryAgain}>
           Try again
-        </ResultsButton>
-      </ResultsButtonsWrapper>
-    </ResultsMain>
+        </LargeButton>
+      </ButtonsWrapper>
+    </Main>
   );
 };

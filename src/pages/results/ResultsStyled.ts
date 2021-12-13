@@ -1,15 +1,10 @@
 import styled from "styled-components";
 import { Main } from "../../components/main/MainStyled";
-import { devices, mainTheme } from "../../styles/theme";
-import { Button } from "../../components/button/Button";
+import { mainTheme } from "../../styles/theme";
 
 export const ResultsMain = styled(Main)`
   height: calc(100% - 78px);
   justify-content: center;
-
-  @media ${devices.iphone7Plus} {
-    height: calc(100% - 58px);
-  }
 `;
 
 export const ResultsWrapper = styled.div`
@@ -33,21 +28,19 @@ export const Score = styled.div`
   margin-top: 20px;
 `;
 
-export const ScoreLarge = styled.div`
+export const ScorePoints = styled.div`
   font-size: 80px;
   font-weight: bold;
   color: ${mainTheme.colors.steelBlue};
   margin: 10px 0;
+
+  & small {
+    font-size: 24px;
+  }
 `;
 
-export const ResultsButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: auto auto 60px;
-`;
-
-export const ResultsButton = styled(Button)`
+export const TotalTime = styled.div`
   font-size: 24px;
-  margin-top: 20px;
+  color: ${mainTheme.colors.steelBlue};
+  margin-top: 10px;
 `;
