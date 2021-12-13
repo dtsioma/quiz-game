@@ -4,17 +4,22 @@ import {
   themeReducer,
   ProgressAction,
   ThemeAction,
+  highScoresReducer,
+  HighScoresAction,
 } from "./reducers";
 import { mainTheme } from "./styles/theme";
 
 interface StateProps {
   progress: ProgressStateProps;
   theme: ThemeStateProps;
+  highScores: HighScoresStateProps;
 }
 
 export interface ProgressStateProps {
   done: number;
   correct: number;
+  points: number;
+  totalSeconds: number;
 }
 
 export interface ThemeStateProps {
@@ -22,14 +27,23 @@ export interface ThemeStateProps {
   showHeader: boolean;
 }
 
+export interface HighScoresStateProps {
+  scores: number[];
+}
+
 const initialState = {
   progress: {
     done: 0,
     correct: 0,
+    points: 0,
+    totalSeconds: 0,
   },
   theme: {
     bgColor: mainTheme.colors.lavenderWeb,
     showHeader: false,
+  },
+  highScores: {
+    scores: [],
   },
 };
 
@@ -42,11 +56,12 @@ const AppContext = createContext<{
 });
 
 const mainReducer = (
-  { progress, theme }: StateProps,
-  action: ProgressAction | ThemeAction
+  { progress, theme, highScores }: StateProps,
+  action: ProgressAction | ThemeAction | HighScoresAction
 ): StateProps => ({
   progress: progressReducer(progress, action as ProgressAction),
   theme: themeReducer(theme, action as ThemeAction),
+  highScores: highScoresReducer(highScores, action as HighScoresAction),
 });
 
 const AppProvider: React.FC = ({ children }) => {

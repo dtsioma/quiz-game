@@ -6,15 +6,29 @@ import { useLocation } from "react-router-dom";
 import { ProgressBar } from "./components/progressBar/ProgressBar";
 import { AppContext } from "./context";
 import { AppWrapper, Header, IconButton } from "./AppStyled";
+import { useEffect } from "react";
 
 function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const goToHome = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("dts__quiz__high_scores")) {
+      const localScores = JSON.parse(
+        localStorage.getItem("dts__quiz__high_scores") as string
+      );
+      dispatch({
+        type: "UPDATE_HIGH_SCORES",
+        payload: { highScores: localScores },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AppWrapper bgColor={state.theme.bgColor}>

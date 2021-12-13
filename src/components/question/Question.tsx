@@ -18,7 +18,7 @@ import {
   QuizOptionsWrapper,
 } from "./QuestionStyled";
 
-interface QuestionOption {
+export interface QuestionOption {
   name: string;
   char: string;
   correct: boolean;
@@ -26,7 +26,7 @@ interface QuestionOption {
   hinted: boolean;
 }
 
-type QuestionStatus =
+export type QuestionStatus =
   | "default"
   | "hinted"
   | "answeredCorrectly"
@@ -47,16 +47,13 @@ export const Question: React.FC = () => {
   const [secondsLeft, setSecondsLeft] = useState<number>(15);
   const [timerRest, setTimerRest] = useState<boolean>(false);
   const [hintCounter, setHintCounter] = useState<number>(3);
+  const [startTime] = useState<number>(Date.now());
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(AppContext);
   const {
     progress: { done },
   } = state;
-
-  useEffect(() => {
-    console.log(questionStatus);
-  }, [questionStatus]);
 
   const usedIndices: number[] = [];
   const generateOptions = () => {
@@ -97,16 +94,35 @@ export const Question: React.FC = () => {
   const answer = (index: number) => {
     setAnswerIndex(index);
     if (options[index].correct) {
+      // correct answer
+      const points = getPoints();
       setQuestionStatus("answeredCorrectly");
       setSubtitle("Correct! This is");
-      dispatch({ type: "ANSWERED_CORRECTLY" });
+      dispatch({ type: "ANSWERED_CORRECTLY", payload: { points } });
     } else {
+      // incorrect answer
       setQuestionStatus("answeredIncorrectly");
       setSubtitle("Incorrect :( This is not");
       dispatch({ type: "ANSWERED_INCORRECTLY" });
     }
     setTimerRest(true);
     setSecondsLeft(5);
+  };
+
+  const getPoints = () => {
+    let points;
+    // calculate depending on time
+    if (secondsLeft >= 10) {
+      points = 10;
+    } else {
+      points = 10 - Math.ceil((10 - secondsLeft) / 2);
+    }
+    // subtract points for used hints (-2 for each)
+    if (questionStatus === "hinted") {
+      points -= 2;
+    }
+    console.log(points);
+    return points;
   };
 
   const getVariant = (index: number) => {
@@ -141,7 +157,7 @@ export const Question: React.FC = () => {
           if (done < 10) {
             nextQuestion();
           } else {
-            goToResults();
+            finishQuiz();
           }
           setSecondsLeft(15);
         } else {
@@ -200,7 +216,19 @@ export const Question: React.FC = () => {
     setSecondsLeft(15);
   };
 
-  const goToResults = () => {
+  const finishQuiz = () => {
+    const finishTime = Date.now();
+    const totalSeconds =
+      Math.round(Math.abs(finishTime - startTime) / 100) / 10;
+    dispatch({ type: "SET_TOTAL_TIME", payload: { totalSeconds } });
+    let scores = [...state.highScores.scores];
+    scores.push(state.progress.points);
+    scores.sort((a, b) => b - a);
+    if (scores.length > 3) {
+      scores = scores.slice(0, 3);
+    }
+    dispatch({ type: "UPDATE_HIGH_SCORES", payload: { highScores: scores } });
+    localStorage.setItem("dts__quiz__high_scores", JSON.stringify(scores));
     navigate("/results", { state: { continue: true } });
   };
 
@@ -252,7 +280,7 @@ export const Question: React.FC = () => {
         <NextButton
           variant="blue"
           width="300px"
-          clicked={done < 10 ? goToNextQuestion : goToResults}
+          clicked={done < 10 ? goToNextQuestion : finishQuiz}
         >
           {done < 10 ? "Next" : "Go to Results"}
         </NextButton>

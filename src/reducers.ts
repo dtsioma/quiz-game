@@ -1,11 +1,16 @@
-import { ProgressStateProps, ThemeStateProps } from "./context";
+import {
+  HighScoresStateProps,
+  ProgressStateProps,
+  ThemeStateProps,
+} from "./context";
 import { mainTheme } from "./styles/theme";
 
 export type ProgressAction =
-  | { type: "ANSWERED_CORRECTLY" }
+  | { type: "ANSWERED_CORRECTLY"; payload: { points: number } }
   | { type: "ANSWERED_INCORRECTLY" }
   | { type: "NOT_ANSWERED" }
-  | { type: "RESET_PROGRESS" };
+  | { type: "RESET_PROGRESS" }
+  | { type: "SET_TOTAL_TIME"; payload: { totalSeconds: number } };
 
 export type ThemeAction =
   | { type: "SET_BG_PURPLE" }
@@ -13,6 +18,11 @@ export type ThemeAction =
   | { type: "SET_BG_BLUE" }
   | { type: "SHOW_HEADER" }
   | { type: "HIDE_HEADER" };
+
+export type HighScoresAction = {
+  type: "UPDATE_HIGH_SCORES";
+  payload: { highScores: number[] };
+};
 
 export const progressReducer = (
   state: ProgressStateProps,
@@ -24,6 +34,7 @@ export const progressReducer = (
         ...state,
         done: ++state.done,
         correct: ++state.correct,
+        points: state.points + action.payload.points,
       };
     case "ANSWERED_INCORRECTLY":
     case "NOT_ANSWERED":
@@ -31,11 +42,17 @@ export const progressReducer = (
         ...state,
         done: ++state.done,
       };
+    case "SET_TOTAL_TIME":
+      return {
+        ...state,
+        totalSeconds: action.payload.totalSeconds,
+      };
     case "RESET_PROGRESS":
       return {
         ...state,
         done: 0,
         correct: 0,
+        points: 0,
       };
     default:
       return state;
@@ -68,6 +85,21 @@ export const themeReducer = (state: ThemeStateProps, action: ThemeAction) => {
       return {
         ...state,
         showHeader: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const highScoresReducer = (
+  state: HighScoresStateProps,
+  action: HighScoresAction
+) => {
+  switch (action.type) {
+    case "UPDATE_HIGH_SCORES":
+      return {
+        ...state,
+        scores: action.payload.highScores,
       };
     default:
       return state;
