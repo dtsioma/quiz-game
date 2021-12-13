@@ -28,4 +28,5 @@ export const IconButton = styled.button`
   background: none;
   cursor: pointer;
   border: none;
+  margin: 0;
 `;
