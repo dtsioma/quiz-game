@@ -5,7 +5,7 @@
 ## About
 
 In this simple game, you have to guess as many states by their shape as possible in a limited time.
-This is the secon version of the app. In future releases, I am planning to add:
+This is the second version of the app. In future releases, I am planning to add:
 * Animation
 * Different levels of difficulty
 * Ability to log in with Google/Github to keep records about high scores and create global leaderboard
